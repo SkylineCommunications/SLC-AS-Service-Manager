@@ -1,0 +1,37 @@
+# Visual Studio temporary files
+.vs/
+
+# Rider temporary files
+.idea/
+
+# Compiled files
+bin/
+obj/
+
+# User-specific files
+*.user
+
+# NuGet packages
+*.nupkg
+*.paket
+
+# Visual Studio Code directory
+.vscode/
+
+# Rider settings directory
+*.sln.iml
+
+# Windows folder config file
+Thumbs.db
+
+# macOS folder attributes
+.DS_Store
+
+# Linux folder config file
+desktop.ini
+
+# compiled files 
+*/bin/
+*/obj/
+
+# .sln

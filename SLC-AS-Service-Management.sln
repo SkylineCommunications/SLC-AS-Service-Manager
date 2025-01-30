@@ -1,0 +1,212 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Internal", "Internal", "{FEF9DDA9-EA91-49A7-A8C6-830BBD226703}"
+	ProjectSection(SolutionItems) = preProject
+		Internal\.editorconfig = Internal\.editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dlls", "Dlls", "{682CDC1B-B280-45E8-A602-69016550B237}"
+	ProjectSection(SolutionItems) = preProject
+		Dlls\ABOUT.md = Dlls\ABOUT.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CompanionFiles", "CompanionFiles", "{544A7970-D50E-4591-82FF-864F49BFCC8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skyline DataMiner", "Skyline DataMiner", "{CA5FDB9F-88EC-4369-B165-1C99D925BC6A}"
+	ProjectSection(SolutionItems) = preProject
+		CompanionFiles\Skyline DataMiner\AboutThisFolder.md = CompanionFiles\Skyline DataMiner\AboutThisFolder.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{E4AD4782-B190-45A4-B6C4-06F43DF8C9E3}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\ABOUT.md = Documentation\ABOUT.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F8938D60-51A0-4880-9CFC-19C66379BB5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code Analysis", "Code Analysis", "{5DFBBF62-D581-4516-B21B-EF10520FFBA3}"
+	ProjectSection(SolutionItems) = preProject
+		Internal\Code Analysis\qaction-debug.ruleset = Internal\Code Analysis\qaction-debug.ruleset
+		Internal\Code Analysis\qaction-release.ruleset = Internal\Code Analysis\qaction-release.ruleset
+		Internal\Code Analysis\stylecop.json = Internal\Code Analysis\stylecop.json
+	EndProjectSection
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedProject", "SharedProject\SharedProject.shproj", "{90038565-CAC7-4CFD-BFF3-C1DC780E249F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Get Multisection", "Get Multisection", "{E2B8E012-0F99-4CE2-8FC4-865CA5EBFE04}"
+	ProjectSection(SolutionItems) = preProject
+		Get Multisection.xml = Get Multisection.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{6E167FCA-C5EA-427B-8CCE-95497B63D3C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get Multisection_1", "Get Multisection_1\Get Multisection_1.csproj", "{1DB93BBC-4534-4A2A-A88A-976DA45F6EF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Get Service Order Items Multisection", "Get Service Order Items Multisection", "{33626F44-C5B3-40F8-B1D4-C4B0E8300F23}"
+	ProjectSection(SolutionItems) = preProject
+		Get Service Order Items Multisection.xml = Get Service Order Items Multisection.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{2B13BCB1-4369-4658-902B-340DA1303422}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get Service Order Items Multisection_1", "Get Service Order Items Multisection_1\Get Service Order Items Multisection_1.csproj", "{7C2C0C2B-160E-4076-B4A1-CEC129D9E74E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Add Property Values to Service Order Item", "Add Property Values to Service Order Item", "{8946228A-7C4B-4554-BB73-D6049D048BB1}"
+	ProjectSection(SolutionItems) = preProject
+		Add Property Values to Service Order Item.xml = Add Property Values to Service Order Item.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{0E797233-B6AC-48A2-BEB0-5AA7B68397CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add Property Values to Service Order Item_1", "Add Property Values to Service Order Item_1\Add Property Values to Service Order Item_1.csproj", "{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Create Service", "Create Service", "{617D541C-CAD4-4789-A3D0-7C8D8171F082}"
+	ProjectSection(SolutionItems) = preProject
+		Create Service.xml = Create Service.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{785AA0DE-6337-4DBA-BB19-87A979DA5742}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Create Service_1", "Create Service_1\Create Service_1.csproj", "{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Sources", "Data Sources", "{7CBCC20E-E255-4C5D-B388-08A8ED9266F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{58D44688-DF14-4EDC-90DB-2B1A6FF4E21D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service Ordering Portal", "Service Ordering Portal", "{BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service Inventory", "Service Inventory", "{D1394C3B-B48C-4E36-ADCB-E5234ED51EB8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Launch Interactive Subscript", "Launch Interactive Subscript", "{414C4A14-8CE2-4CF8-9775-4A629744E8D0}"
+	ProjectSection(SolutionItems) = preProject
+		Launch Interactive Subscript.xml = Launch Interactive Subscript.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{ECF401B2-B477-4A08-B25C-24EDF20A25E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launch Interactive Subscript_1", "Launch Interactive Subscript_1\Launch Interactive Subscript_1.csproj", "{D97731D9-FEE9-4246-86EC-2C49745905EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SAT-DL Booking Wizard Wrapper", "SAT-DL Booking Wizard Wrapper", "{B98FEBF2-C6F8-46E4-8132-338DAC78CDAC}"
+	ProjectSection(SolutionItems) = preProject
+		SAT-DL Booking Wizard Wrapper.xml = SAT-DL Booking Wizard Wrapper.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{AFEBE408-EFA2-4CA6-9AB5-8BB27D57CCB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAT-DL Booking Wizard Wrapper_1", "SAT-DL Booking Wizard Wrapper_1\SAT-DL Booking Wizard Wrapper_1.csproj", "{2B832100-6190-4CE1-AD68-2647E3AC00FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Get Service Configuration", "Get Service Configuration", "{62D42AD6-A5FB-4DDE-86EB-CF46E78A8A77}"
+	ProjectSection(SolutionItems) = preProject
+		Get Service Configuration.xml = Get Service Configuration.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{C0FD3127-7718-480F-BB2F-C2A5D623C549}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get Service Configuration_1", "Get Service Configuration_1\Get Service Configuration_1.csproj", "{43502512-CBF0-49C0-B688-AF223CC707FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service Parameters", "Service Parameters", "{4CD6A204-E4C7-4C4D-97A7-717B2AD78AAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Add Service Parameter", "Add Service Parameter", "{AD9C35EA-85F7-471F-AB1D-5FBB0EC9BD0E}"
+	ProjectSection(SolutionItems) = preProject
+		Add Service Parameter.xml = Add Service Parameter.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{080AA1D5-90E4-425B-90DB-673B4EC8F443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add Service Parameter_1", "Add Service Parameter_1\Add Service Parameter_1.csproj", "{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DB93BBC-4534-4A2A-A88A-976DA45F6EF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB93BBC-4534-4A2A-A88A-976DA45F6EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DB93BBC-4534-4A2A-A88A-976DA45F6EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DB93BBC-4534-4A2A-A88A-976DA45F6EF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C2C0C2B-160E-4076-B4A1-CEC129D9E74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C2C0C2B-160E-4076-B4A1-CEC129D9E74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C2C0C2B-160E-4076-B4A1-CEC129D9E74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C2C0C2B-160E-4076-B4A1-CEC129D9E74E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D97731D9-FEE9-4246-86EC-2C49745905EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D97731D9-FEE9-4246-86EC-2C49745905EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D97731D9-FEE9-4246-86EC-2C49745905EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D97731D9-FEE9-4246-86EC-2C49745905EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B832100-6190-4CE1-AD68-2647E3AC00FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B832100-6190-4CE1-AD68-2647E3AC00FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B832100-6190-4CE1-AD68-2647E3AC00FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B832100-6190-4CE1-AD68-2647E3AC00FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43502512-CBF0-49C0-B688-AF223CC707FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43502512-CBF0-49C0-B688-AF223CC707FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43502512-CBF0-49C0-B688-AF223CC707FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43502512-CBF0-49C0-B688-AF223CC707FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA5FDB9F-88EC-4369-B165-1C99D925BC6A} = {544A7970-D50E-4591-82FF-864F49BFCC8C}
+		{5DFBBF62-D581-4516-B21B-EF10520FFBA3} = {FEF9DDA9-EA91-49A7-A8C6-830BBD226703}
+		{90038565-CAC7-4CFD-BFF3-C1DC780E249F} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
+		{E2B8E012-0F99-4CE2-8FC4-865CA5EBFE04} = {7CBCC20E-E255-4C5D-B388-08A8ED9266F4}
+		{6E167FCA-C5EA-427B-8CCE-95497B63D3C3} = {E2B8E012-0F99-4CE2-8FC4-865CA5EBFE04}
+		{1DB93BBC-4534-4A2A-A88A-976DA45F6EF9} = {6E167FCA-C5EA-427B-8CCE-95497B63D3C3}
+		{33626F44-C5B3-40F8-B1D4-C4B0E8300F23} = {7CBCC20E-E255-4C5D-B388-08A8ED9266F4}
+		{2B13BCB1-4369-4658-902B-340DA1303422} = {33626F44-C5B3-40F8-B1D4-C4B0E8300F23}
+		{7C2C0C2B-160E-4076-B4A1-CEC129D9E74E} = {2B13BCB1-4369-4658-902B-340DA1303422}
+		{8946228A-7C4B-4554-BB73-D6049D048BB1} = {BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}
+		{0E797233-B6AC-48A2-BEB0-5AA7B68397CB} = {8946228A-7C4B-4554-BB73-D6049D048BB1}
+		{967EFA36-3EF5-4B42-A63E-9E4B50BE8297} = {0E797233-B6AC-48A2-BEB0-5AA7B68397CB}
+		{617D541C-CAD4-4789-A3D0-7C8D8171F082} = {D1394C3B-B48C-4E36-ADCB-E5234ED51EB8}
+		{785AA0DE-6337-4DBA-BB19-87A979DA5742} = {617D541C-CAD4-4789-A3D0-7C8D8171F082}
+		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD} = {785AA0DE-6337-4DBA-BB19-87A979DA5742}
+		{7CBCC20E-E255-4C5D-B388-08A8ED9266F4} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
+		{58D44688-DF14-4EDC-90DB-2B1A6FF4E21D} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
+		{BE83E7A7-57A2-4D1E-8B12-D33553E4BB31} = {58D44688-DF14-4EDC-90DB-2B1A6FF4E21D}
+		{D1394C3B-B48C-4E36-ADCB-E5234ED51EB8} = {58D44688-DF14-4EDC-90DB-2B1A6FF4E21D}
+		{414C4A14-8CE2-4CF8-9775-4A629744E8D0} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
+		{ECF401B2-B477-4A08-B25C-24EDF20A25E6} = {414C4A14-8CE2-4CF8-9775-4A629744E8D0}
+		{D97731D9-FEE9-4246-86EC-2C49745905EE} = {ECF401B2-B477-4A08-B25C-24EDF20A25E6}
+		{B98FEBF2-C6F8-46E4-8132-338DAC78CDAC} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
+		{AFEBE408-EFA2-4CA6-9AB5-8BB27D57CCB2} = {B98FEBF2-C6F8-46E4-8132-338DAC78CDAC}
+		{2B832100-6190-4CE1-AD68-2647E3AC00FB} = {AFEBE408-EFA2-4CA6-9AB5-8BB27D57CCB2}
+		{62D42AD6-A5FB-4DDE-86EB-CF46E78A8A77} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
+		{C0FD3127-7718-480F-BB2F-C2A5D623C549} = {62D42AD6-A5FB-4DDE-86EB-CF46E78A8A77}
+		{43502512-CBF0-49C0-B688-AF223CC707FD} = {C0FD3127-7718-480F-BB2F-C2A5D623C549}
+		{4CD6A204-E4C7-4C4D-97A7-717B2AD78AAF} = {58D44688-DF14-4EDC-90DB-2B1A6FF4E21D}
+		{AD9C35EA-85F7-471F-AB1D-5FBB0EC9BD0E} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
+		{080AA1D5-90E4-425B-90DB-673B4EC8F443} = {AD9C35EA-85F7-471F-AB1D-5FBB0EC9BD0E}
+		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E} = {080AA1D5-90E4-425B-90DB-673B4EC8F443}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2D9BAD4-B595-4651-B30C-550998B67040}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SharedProject\SharedProject.projitems*{1db93bbc-4534-4a2a-a88a-976da45f6ef9}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{43502512-cbf0-49c0-b688-af223cc707fd}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{4f9c7bcd-9535-46cf-9ac9-55dd862bd44e}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{7c2c0c2b-160e-4076-b4a1-cec129d9e74e}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{90038565-cac7-4cfd-bff3-c1dc780e249f}*SharedItemsImports = 13
+		SharedProject\SharedProject.projitems*{967efa36-3ef5-4b42-a63e-9e4b50be8297}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{b3b95cd7-be59-4ebe-ad24-d5afbc3a7fad}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal
