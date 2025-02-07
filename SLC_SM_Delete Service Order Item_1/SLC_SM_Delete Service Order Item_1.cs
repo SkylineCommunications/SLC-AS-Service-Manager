@@ -49,47 +49,49 @@ dd/mm/2025	1.0.0.1		XXX, Skyline	Initial version
 ****************************************************************************
 */
 
-namespace Launch_Interactive_Subscript_1
+namespace SLC_SM_Delete_Service_Order_Item_1
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Linq;
-	using Newtonsoft.Json;
+	using DomHelpers.SlcServicemanagement;
 	using Skyline.DataMiner.Automation;
+	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
+	using Skyline.DataMiner.Net.Messages.SLDataGateway;
 
 	/// <summary>
 	/// Represents a DataMiner Automation script.
 	/// </summary>
 	public class Script
 	{
+		private IEngine _engine;
+
 		/// <summary>
 		/// The script entry point.
 		/// </summary>
 		/// <param name="engine">Link with SLAutomation process.</param>
 		public void Run(IEngine engine)
 		{
-			/*
-			* Note:
-			* Do not remove the commented methods below!
-			* The lines are needed to execute an interactive automation script from the non-interactive automation script or from Visio!
-			*
-			* engine.ShowUI();
-			*/
-			if (engine.IsInteractive)
-			{
-				engine.FindInteractiveClient("Failed to run script in interactive mode", 1);
-			}
-
 			try
 			{
-				string scriptNameParam = engine.GetScriptParam("Script Name").Value;
-				string scriptName = JsonConvert.DeserializeObject<List<string>>(scriptNameParam).FirstOrDefault()
-									?? throw new InvalidOperationException("No Service Item Script provided to run the action");
-
-				string bookingManagerElementName = JsonConvert.DeserializeObject<List<string>>(engine.GetScriptParam("Booking Manager Element Name").Value).FirstOrDefault()
-												   ?? throw new InvalidOperationException("No Booking Manager Reference provided to run the action");
-
-				RunScript(engine, scriptName, bookingManagerElementName);
+				_engine = engine;
+				RunSafe();
+			}
+			catch (ScriptAbortException)
+			{
+				// Catch normal abort exceptions (engine.ExitFail or engine.ExitSuccess)
+			}
+			catch (ScriptForceAbortException)
+			{
+				// Catch forced abort exceptions, caused via external maintenance messages.
+			}
+			catch (ScriptTimeoutException)
+			{
+				// Catch timeout exceptions for when a script has been running for too long.
+			}
+			catch (InteractiveUserDetachedException)
+			{
+				// Catch a user detaching from the interactive script by closing the window.
+				// Only applicable for interactive scripts, can be removed for non-interactive scripts.
 			}
 			catch (Exception e)
 			{
@@ -97,21 +99,37 @@ namespace Launch_Interactive_Subscript_1
 			}
 		}
 
-
-		private static void RunScript(IEngine engine, string scriptName, string bookingManagerElementName)
+		private void RunSafe()
 		{
-			var subScript = engine.PrepareSubScript(scriptName);
-			subScript.Synchronous = true;
-			subScript.ExtendedErrorInfo = true;
-
-			subScript.SelectScriptParam("Booking Manager Element Info", "{ \"Element\":\"" + bookingManagerElementName + "\",\"TableIndex\":\"\",\"Action\":\"New\"}");
-
-			subScript.StartScript();
-
-			if (subScript.HadError)
+			if (!Guid.TryParse(_engine.GetScriptParam("DOM ID").Value.Trim('"', '[', ']'), out Guid domId))
 			{
-				throw new InvalidOperationException(String.Join(@"\r\n", subScript.GetErrorMessages()));
+				throw new InvalidOperationException("No DOM ID provided as input to the script");
 			}
+
+			if (!Guid.TryParse(_engine.GetScriptParam("Service Order Item ID").Value.Trim('"', '[', ']'), out Guid serviceOrderItemId))
+			{
+				throw new InvalidOperationException("No Service Order Item ID provided as input to the script");
+			}
+
+			var domHelper = new DomHelper(_engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
+			var domInstance = domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(domId)).FirstOrDefault()
+							  ?? throw new InvalidOperationException($"No DOM Instance with ID '{domId}' found on the system!");
+			var orderItemInstance = new ServiceOrdersInstance(domInstance);
+
+			DeleteServiceItemFromInstance(domHelper, orderItemInstance, serviceOrderItemId);
+			throw new ScriptAbortException("OK");
+		}
+
+		private static void DeleteServiceItemFromInstance(DomHelper helper, ServiceOrdersInstance domInstance, Guid serviceOrderItemId)
+		{
+			var itemToRemove = domInstance.ServiceOrderItems.FirstOrDefault(x => x.ServiceOrderItem == serviceOrderItemId);
+			if (itemToRemove == null)
+			{
+				throw new InvalidOperationException($"No Service order item exists with ID '{serviceOrderItemId}' to remove");
+			}
+
+			domInstance.ServiceOrderItems.Remove(itemToRemove);
+			domInstance.Save(helper);
 		}
 	}
 }

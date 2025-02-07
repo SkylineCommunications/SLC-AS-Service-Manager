@@ -48,8 +48,7 @@ DATE		VERSION		AUTHOR			COMMENTS
 dd/mm/2025	1.0.0.1		XXX, Skyline	Initial version
 ****************************************************************************
 */
-
-namespace Add_Property_Values_to_Service_Order_Item_1
+namespace SLC_SM_Create_Service_Inventory_Item_1
 {
 	using System;
 	using System.Collections.Generic;
@@ -58,16 +57,17 @@ namespace Add_Property_Values_to_Service_Order_Item_1
 	using Newtonsoft.Json;
 	using Skyline.DataMiner.Automation;
 	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
+	using Skyline.DataMiner.Net.Messages.SLDataGateway;
 
 	/// <summary>
-	/// Represents a DataMiner Automation script.
+	///     Represents a DataMiner Automation script.
 	/// </summary>
 	public class Script
 	{
 		DomHelper _domHelper;
 
 		/// <summary>
-		/// The script entry point.
+		///     The script entry point.
 		/// </summary>
 		/// <param name="engine">Link with SLAutomation process.</param>
 		public void Run(IEngine engine)
@@ -101,48 +101,67 @@ namespace Add_Property_Values_to_Service_Order_Item_1
 			}
 			catch (Exception e)
 			{
-				engine.ExitFail("Run|Something went wrong: " + e);
-			}
-		}
-
-		private void RunSafe(IEngine engine)
-		{
-			string propertiesParam = engine.GetScriptParam("Property Values ID").Value;
-			Guid propertiesDomId = JsonConvert.DeserializeObject<List<Guid>>(propertiesParam).Single();
-
-			string objectParam = engine.GetScriptParam("Object ID").Value;
-			Guid domId = JsonConvert.DeserializeObject<List<Guid>>(objectParam).Single();
-
-			engine.GenerateInformation($"{propertiesDomId.ToString()} - {domId.ToString()}");
-
-			var domIntanceId = new DomInstanceId(domId);
-
-			// create filter to filter event instances with specific dom event ids
-			var filter = DomInstanceExposers.Id.Equal(domIntanceId);
-			var domInstance = _domHelper.DomInstances.Read(filter).FirstOrDefault()
-				?? throw new InvalidOperationException($"DOM Instance with ID '{domId}' does not exist on the system.");
-
-			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
-			{
-				var serviceOrderItemInstance = new ServiceOrderItemsInstance(domInstance);
-				serviceOrderItemInstance.ServiceOrderItemServiceInfo.Properties = propertiesDomId;
-				serviceOrderItemInstance.Save(_domHelper);
-			}
-			else if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceSpecifications.Id)
-			{
-				var serviceSpecInstance = new ServiceSpecificationsInstance(domInstance);
-				serviceSpecInstance.ServiceSpecificationInfo.ServiceProperties = propertiesDomId;
-				serviceSpecInstance.Save(_domHelper);
-			}
-			else
-			{
-				throw new Exception($"DOM definition {domInstance.DomDefinitionId.ToString()} linked to instance with Object ID not supported");
+				engine.ExitFail(e.Message);
 			}
 		}
 
 		private void InitHelpers(IEngine engine)
 		{
 			_domHelper = new DomHelper(engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
+		}
+
+		private void RunSafe(IEngine engine)
+		{
+			string serviceName = JsonConvert.DeserializeObject<List<string>>(engine.GetScriptParam("Service Name").Value).FirstOrDefault()
+								 ?? throw new InvalidOperationException("No Service Name provided as input");
+
+			if (!Guid.TryParse(engine.GetScriptParam("Service Category").Value.Trim('"', '[', ']'), out Guid categoryDomId))
+			{
+				throw new InvalidOperationException("No Category specified as input");
+			}
+
+			if (!Guid.TryParse(engine.GetScriptParam("Service Specification").Value.Trim('"', '[', ']'), out Guid specDomId))
+			{
+				throw new InvalidOperationException("No Service Specification specified as input");
+			}
+
+			long startRaw = Convert.ToInt64(engine.GetScriptParam("Date Start").Value.Trim('"', '[', ']'));
+			DateTimeOffset start = DateTimeOffset.FromUnixTimeMilliseconds(startRaw);
+
+			long endRaw = Convert.ToInt64(engine.GetScriptParam("Date End").Value.Trim('"', '[', ']'));
+			DateTimeOffset end = DateTimeOffset.FromUnixTimeMilliseconds(endRaw);
+
+			var domInstance = _domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(specDomId)).FirstOrDefault()
+							  ?? throw new InvalidOperationException($"No Service Specification found with ID '{specDomId}'.");
+			var serviceSpecificationInstance = new ServiceSpecificationsInstance(domInstance);
+
+			var serviceInstance = new ServicesInstance
+			{
+				ServiceInfo =
+				{
+					Name = serviceName,
+					ServiceStartTime = start.UtcDateTime,
+					ServiceEndTime = end.UtcDateTime,
+					Icon = serviceSpecificationInstance.ServiceSpecificationInfo.Icon,
+					Description = serviceSpecificationInstance.ServiceSpecificationInfo.Description,
+					ServiceCategory = categoryDomId,
+					ServiceSpecifcation = specDomId,
+					ServiceProperties = serviceSpecificationInstance.ServiceSpecificationInfo.ServiceProperties,
+					ServiceConfiguration = serviceSpecificationInstance.ServiceSpecificationInfo.ServiceConfiguration,
+				},
+			};
+
+			foreach (var relationship in serviceSpecificationInstance.ServiceItemRelationship)
+			{
+				serviceInstance.ServiceItemRelationship.Add(relationship);
+			}
+
+			foreach (var item in serviceSpecificationInstance.ServiceItems)
+			{
+				serviceInstance.ServiceItems.Add(item);
+			}
+
+			serviceInstance.Save(_domHelper);
 		}
 	}
 }

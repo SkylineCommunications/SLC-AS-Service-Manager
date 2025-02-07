@@ -46,7 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Get Multisection", "Get Mul
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{6E167FCA-C5EA-427B-8CCE-95497B63D3C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get Multisection_1", "Get Multisection_1\Get Multisection_1.csproj", "{1DB93BBC-4534-4A2A-A88A-976DA45F6EF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Get Multisection_1", "Get Multisection_1\Get Multisection_1.csproj", "{1DB93BBC-4534-4A2A-A88A-976DA45F6EF9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Get Service Order Items Multisection", "Get Service Order Items Multisection", "{33626F44-C5B3-40F8-B1D4-C4B0E8300F23}"
 	ProjectSection(SolutionItems) = preProject
@@ -55,7 +55,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Get Service Order Items Mul
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{2B13BCB1-4369-4658-902B-340DA1303422}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get Service Order Items Multisection_1", "Get Service Order Items Multisection_1\Get Service Order Items Multisection_1.csproj", "{7C2C0C2B-160E-4076-B4A1-CEC129D9E74E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Get Service Order Items Multisection_1", "Get Service Order Items Multisection_1\Get Service Order Items Multisection_1.csproj", "{7C2C0C2B-160E-4076-B4A1-CEC129D9E74E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Add Property Values to Service Order Item", "Add Property Values to Service Order Item", "{8946228A-7C4B-4554-BB73-D6049D048BB1}"
 	ProjectSection(SolutionItems) = preProject
@@ -64,16 +64,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Add Property Values to Serv
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{0E797233-B6AC-48A2-BEB0-5AA7B68397CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add Property Values to Service Order Item_1", "Add Property Values to Service Order Item_1\Add Property Values to Service Order Item_1.csproj", "{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Add Property Values to Service Order Item_1", "Add Property Values to Service Order Item_1\Add Property Values to Service Order Item_1.csproj", "{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Create Service", "Create Service", "{617D541C-CAD4-4789-A3D0-7C8D8171F082}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_Create Service Inventory Item", "SLC_SM_Create Service Inventory Item", "{617D541C-CAD4-4789-A3D0-7C8D8171F082}"
 	ProjectSection(SolutionItems) = preProject
-		Create Service.xml = Create Service.xml
+		SLC_SM_Create Service Inventory Item.xml = SLC_SM_Create Service Inventory Item.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{785AA0DE-6337-4DBA-BB19-87A979DA5742}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Create Service_1", "Create Service_1\Create Service_1.csproj", "{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Sources", "Data Sources", "{7CBCC20E-E255-4C5D-B388-08A8ED9266F4}"
 EndProject
@@ -90,16 +88,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Launch Interactive Subscrip
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{ECF401B2-B477-4A08-B25C-24EDF20A25E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launch Interactive Subscript_1", "Launch Interactive Subscript_1\Launch Interactive Subscript_1.csproj", "{D97731D9-FEE9-4246-86EC-2C49745905EE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SAT-DL Booking Wizard Wrapper", "SAT-DL Booking Wizard Wrapper", "{B98FEBF2-C6F8-46E4-8132-338DAC78CDAC}"
-	ProjectSection(SolutionItems) = preProject
-		SAT-DL Booking Wizard Wrapper.xml = SAT-DL Booking Wizard Wrapper.xml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{AFEBE408-EFA2-4CA6-9AB5-8BB27D57CCB2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAT-DL Booking Wizard Wrapper_1", "SAT-DL Booking Wizard Wrapper_1\SAT-DL Booking Wizard Wrapper_1.csproj", "{2B832100-6190-4CE1-AD68-2647E3AC00FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Launch Interactive Subscript_1", "Launch Interactive Subscript_1\Launch Interactive Subscript_1.csproj", "{D97731D9-FEE9-4246-86EC-2C49745905EE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Get Service Configuration", "Get Service Configuration", "{62D42AD6-A5FB-4DDE-86EB-CF46E78A8A77}"
 	ProjectSection(SolutionItems) = preProject
@@ -108,7 +97,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Get Service Configuration",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{C0FD3127-7718-480F-BB2F-C2A5D623C549}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get Service Configuration_1", "Get Service Configuration_1\Get Service Configuration_1.csproj", "{43502512-CBF0-49C0-B688-AF223CC707FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Get Service Configuration_1", "Get Service Configuration_1\Get Service Configuration_1.csproj", "{43502512-CBF0-49C0-B688-AF223CC707FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service Parameters", "Service Parameters", "{4CD6A204-E4C7-4C4D-97A7-717B2AD78AAF}"
 EndProject
@@ -119,7 +108,101 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Add Service Parameter", "Ad
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{080AA1D5-90E4-425B-90DB-673B4EC8F443}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add Service Parameter_1", "Add Service Parameter_1\Add Service Parameter_1.csproj", "{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Add Service Parameter_1", "Add Service Parameter_1\Add Service Parameter_1.csproj", "{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Get Service Properties", "Get Service Properties", "{AFA18117-CC70-4993-91F2-BE346CA71018}"
+	ProjectSection(SolutionItems) = preProject
+		Get Service Properties.xml = Get Service Properties.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{0A736113-5343-4EF4-A2C0-512DC1EC4981}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Get Service Properties_1", "Get Service Properties_1\Get Service Properties_1.csproj", "{F76A1B9B-928A-46E0-91AB-061C9CC9898B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_IAS_Add Service Item", "SLC_SM_IAS_Add Service Item", "{A22C3CBC-6331-4200-B80D-2976C36C9487}"
+	ProjectSection(SolutionItems) = preProject
+		SLC_SM_IAS_Add Service Item.xml = SLC_SM_IAS_Add Service Item.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{91E39BD1-981D-4B2D-87B2-A1B63CD9C731}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_IAS_Add Service Item_1", "SLC_SM_IAS_Add Service Item_1\SLC_SM_IAS_Add Service Item_1.csproj", "{54F51C6C-044F-4E97-BBB9-CD7DE087B2E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_Delete Service Item", "SLC_SM_Delete Service Item", "{FFC98C56-67CC-482E-AD19-6D749BCB6B10}"
+	ProjectSection(SolutionItems) = preProject
+		SLC_SM_Delete Service Item.xml = SLC_SM_Delete Service Item.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{358A0A6E-43AF-4F21-910D-7AE396555E6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_Delete Service Item_1", "SLC_SM_Delete Service Item_1\SLC_SM_Delete Service Item_1.csproj", "{D7BD1FD0-BF5C-47DD-94A9-312423A2FA6D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_IAS_Add Service Property", "SLC_SM_IAS_Add Service Property", "{4901E86D-67AC-46E7-84AF-9200FBB86AE7}"
+	ProjectSection(SolutionItems) = preProject
+		SLC_SM_IAS_Add Service Property.xml = SLC_SM_IAS_Add Service Property.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{A568BADE-BB04-4365-918F-97E9C91C140F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_IAS_Add Service Property_1", "SLC_SM_IAS_Add Service Property_1\SLC_SM_IAS_Add Service Property_1.csproj", "{510FF413-F201-4AF7-8E37-1C95F21A5731}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_Delete Service Property", "SLC_SM_Delete Service Property", "{58F37608-3EFB-4D11-AF4E-B72A895306FF}"
+	ProjectSection(SolutionItems) = preProject
+		SLC_SM_Delete Service Property.xml = SLC_SM_Delete Service Property.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{7D684C1A-A098-44E0-BFC1-2A3299057E38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_Delete Service Property_1", "SLC_SM_Delete Service Property_1\SLC_SM_Delete Service Property_1.csproj", "{4AADE6A3-B764-44DF-973A-8BD9E05E30E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_Delete Service Configuration", "SLC_SM_Delete Service Configuration", "{48DD1F16-7840-439C-8A12-21810FF94392}"
+	ProjectSection(SolutionItems) = preProject
+		SLC_SM_Delete Service Configuration.xml = SLC_SM_Delete Service Configuration.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{437AA244-B2C4-464D-9F6F-8AB75DDB3862}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_Delete Service Configuration_1", "SLC_SM_Delete Service Configuration_1\SLC_SM_Delete Service Configuration_1.csproj", "{93BB37E7-0BBD-4D66-8524-78024974249F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_IAS_Add Service Configuration", "SLC_SM_IAS_Add Service Configuration", "{C7A07236-3BC6-4968-9B8F-9313358D052B}"
+	ProjectSection(SolutionItems) = preProject
+		SLC_SM_IAS_Add Service Configuration.xml = SLC_SM_IAS_Add Service Configuration.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{FF14D528-7EAC-4A45-A5B0-4867E9EE8C20}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_IAS_Add Service Configuration_1", "SLC_SM_IAS_Add Service Configuration_1\SLC_SM_IAS_Add Service Configuration_1.csproj", "{87294D63-E624-450B-95E5-5DFBC7356CBD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_IAS_Add Service Order Item", "SLC_SM_IAS_Add Service Order Item", "{08C97D3A-E85E-4512-9086-F1CD55342E18}"
+	ProjectSection(SolutionItems) = preProject
+		SLC_SM_IAS_Add Service Order Item.xml = SLC_SM_IAS_Add Service Order Item.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{23A5BD5A-2EAB-4920-A4D5-310E244D7F0E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_IAS_Add Service Order Item_1", "SLC_SM_IAS_Add Service Order Item_1\SLC_SM_IAS_Add Service Order Item_1.csproj", "{5549A190-DB26-40B0-B5A9-7BBE46274E39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_GQIDS_Get Service Order Items", "SLC_SM_GQIDS_Get Service Order Items", "{0E61F3F9-9354-4C9C-AB65-9DC7F3372457}"
+	ProjectSection(SolutionItems) = preProject
+		SLC_SM_GQIDS_Get Service Order Items.xml = SLC_SM_GQIDS_Get Service Order Items.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{985B6AEA-2AD4-4C0C-BD54-8CC4B48EBB8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_GQIDS_Get Service Order Items_1", "SLC_SM_GQIDS_Get Service Order Items_1\SLC_SM_GQIDS_Get Service Order Items_1.csproj", "{C4D022C0-F6F6-4CDF-B414-F62479930387}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedProjectIAS", "SharedProjectIAS\SharedProjectIAS.shproj", "{FFC182DA-3627-49B6-A663-E7C5572ED5C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SLC_SM_Delete Service Order Item", "SLC_SM_Delete Service Order Item", "{52842AA3-DE82-42FD-AD90-7926BED75FB9}"
+	ProjectSection(SolutionItems) = preProject
+		SLC_SM_Delete Service Order Item.xml = SLC_SM_Delete Service Order Item.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{9D54E256-C751-423C-8DB7-3DB93AD817A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_Delete Service Order Item_1", "SLC_SM_Delete Service Order Item_1\SLC_SM_Delete Service Order Item_1.csproj", "{E21364D1-E98E-4B14-8823-7265EB1B7DD8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLC_SM_Create Service Inventory Item_1", "SLC_SM_Create Service Inventory Item_1\SLC_SM_Create Service Inventory Item_1.csproj", "{DC73BF8C-767F-43E8-BB75-E28548E161AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,18 +222,10 @@ Global
 		{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{967EFA36-3EF5-4B42-A63E-9E4B50BE8297}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D97731D9-FEE9-4246-86EC-2C49745905EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D97731D9-FEE9-4246-86EC-2C49745905EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D97731D9-FEE9-4246-86EC-2C49745905EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D97731D9-FEE9-4246-86EC-2C49745905EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B832100-6190-4CE1-AD68-2647E3AC00FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B832100-6190-4CE1-AD68-2647E3AC00FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B832100-6190-4CE1-AD68-2647E3AC00FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B832100-6190-4CE1-AD68-2647E3AC00FB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{43502512-CBF0-49C0-B688-AF223CC707FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{43502512-CBF0-49C0-B688-AF223CC707FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43502512-CBF0-49C0-B688-AF223CC707FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -159,6 +234,50 @@ Global
 		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F76A1B9B-928A-46E0-91AB-061C9CC9898B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F76A1B9B-928A-46E0-91AB-061C9CC9898B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F76A1B9B-928A-46E0-91AB-061C9CC9898B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F76A1B9B-928A-46E0-91AB-061C9CC9898B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54F51C6C-044F-4E97-BBB9-CD7DE087B2E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54F51C6C-044F-4E97-BBB9-CD7DE087B2E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54F51C6C-044F-4E97-BBB9-CD7DE087B2E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54F51C6C-044F-4E97-BBB9-CD7DE087B2E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7BD1FD0-BF5C-47DD-94A9-312423A2FA6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7BD1FD0-BF5C-47DD-94A9-312423A2FA6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7BD1FD0-BF5C-47DD-94A9-312423A2FA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7BD1FD0-BF5C-47DD-94A9-312423A2FA6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{510FF413-F201-4AF7-8E37-1C95F21A5731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{510FF413-F201-4AF7-8E37-1C95F21A5731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{510FF413-F201-4AF7-8E37-1C95F21A5731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{510FF413-F201-4AF7-8E37-1C95F21A5731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AADE6A3-B764-44DF-973A-8BD9E05E30E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AADE6A3-B764-44DF-973A-8BD9E05E30E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AADE6A3-B764-44DF-973A-8BD9E05E30E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AADE6A3-B764-44DF-973A-8BD9E05E30E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93BB37E7-0BBD-4D66-8524-78024974249F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93BB37E7-0BBD-4D66-8524-78024974249F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93BB37E7-0BBD-4D66-8524-78024974249F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93BB37E7-0BBD-4D66-8524-78024974249F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87294D63-E624-450B-95E5-5DFBC7356CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87294D63-E624-450B-95E5-5DFBC7356CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87294D63-E624-450B-95E5-5DFBC7356CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87294D63-E624-450B-95E5-5DFBC7356CBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5549A190-DB26-40B0-B5A9-7BBE46274E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5549A190-DB26-40B0-B5A9-7BBE46274E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5549A190-DB26-40B0-B5A9-7BBE46274E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5549A190-DB26-40B0-B5A9-7BBE46274E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D022C0-F6F6-4CDF-B414-F62479930387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D022C0-F6F6-4CDF-B414-F62479930387}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D022C0-F6F6-4CDF-B414-F62479930387}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D022C0-F6F6-4CDF-B414-F62479930387}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E21364D1-E98E-4B14-8823-7265EB1B7DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E21364D1-E98E-4B14-8823-7265EB1B7DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E21364D1-E98E-4B14-8823-7265EB1B7DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E21364D1-E98E-4B14-8823-7265EB1B7DD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC73BF8C-767F-43E8-BB75-E28548E161AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC73BF8C-767F-43E8-BB75-E28548E161AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC73BF8C-767F-43E8-BB75-E28548E161AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC73BF8C-767F-43E8-BB75-E28548E161AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -178,7 +297,6 @@ Global
 		{967EFA36-3EF5-4B42-A63E-9E4B50BE8297} = {0E797233-B6AC-48A2-BEB0-5AA7B68397CB}
 		{617D541C-CAD4-4789-A3D0-7C8D8171F082} = {D1394C3B-B48C-4E36-ADCB-E5234ED51EB8}
 		{785AA0DE-6337-4DBA-BB19-87A979DA5742} = {617D541C-CAD4-4789-A3D0-7C8D8171F082}
-		{B3B95CD7-BE59-4EBE-AD24-D5AFBC3A7FAD} = {785AA0DE-6337-4DBA-BB19-87A979DA5742}
 		{7CBCC20E-E255-4C5D-B388-08A8ED9266F4} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
 		{58D44688-DF14-4EDC-90DB-2B1A6FF4E21D} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
 		{BE83E7A7-57A2-4D1E-8B12-D33553E4BB31} = {58D44688-DF14-4EDC-90DB-2B1A6FF4E21D}
@@ -186,16 +304,45 @@ Global
 		{414C4A14-8CE2-4CF8-9775-4A629744E8D0} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
 		{ECF401B2-B477-4A08-B25C-24EDF20A25E6} = {414C4A14-8CE2-4CF8-9775-4A629744E8D0}
 		{D97731D9-FEE9-4246-86EC-2C49745905EE} = {ECF401B2-B477-4A08-B25C-24EDF20A25E6}
-		{B98FEBF2-C6F8-46E4-8132-338DAC78CDAC} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
-		{AFEBE408-EFA2-4CA6-9AB5-8BB27D57CCB2} = {B98FEBF2-C6F8-46E4-8132-338DAC78CDAC}
-		{2B832100-6190-4CE1-AD68-2647E3AC00FB} = {AFEBE408-EFA2-4CA6-9AB5-8BB27D57CCB2}
-		{62D42AD6-A5FB-4DDE-86EB-CF46E78A8A77} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
+		{62D42AD6-A5FB-4DDE-86EB-CF46E78A8A77} = {7CBCC20E-E255-4C5D-B388-08A8ED9266F4}
 		{C0FD3127-7718-480F-BB2F-C2A5D623C549} = {62D42AD6-A5FB-4DDE-86EB-CF46E78A8A77}
 		{43502512-CBF0-49C0-B688-AF223CC707FD} = {C0FD3127-7718-480F-BB2F-C2A5D623C549}
 		{4CD6A204-E4C7-4C4D-97A7-717B2AD78AAF} = {58D44688-DF14-4EDC-90DB-2B1A6FF4E21D}
 		{AD9C35EA-85F7-471F-AB1D-5FBB0EC9BD0E} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
 		{080AA1D5-90E4-425B-90DB-673B4EC8F443} = {AD9C35EA-85F7-471F-AB1D-5FBB0EC9BD0E}
 		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E} = {080AA1D5-90E4-425B-90DB-673B4EC8F443}
+		{AFA18117-CC70-4993-91F2-BE346CA71018} = {7CBCC20E-E255-4C5D-B388-08A8ED9266F4}
+		{0A736113-5343-4EF4-A2C0-512DC1EC4981} = {AFA18117-CC70-4993-91F2-BE346CA71018}
+		{F76A1B9B-928A-46E0-91AB-061C9CC9898B} = {0A736113-5343-4EF4-A2C0-512DC1EC4981}
+		{A22C3CBC-6331-4200-B80D-2976C36C9487} = {BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}
+		{91E39BD1-981D-4B2D-87B2-A1B63CD9C731} = {A22C3CBC-6331-4200-B80D-2976C36C9487}
+		{54F51C6C-044F-4E97-BBB9-CD7DE087B2E5} = {91E39BD1-981D-4B2D-87B2-A1B63CD9C731}
+		{FFC98C56-67CC-482E-AD19-6D749BCB6B10} = {BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}
+		{358A0A6E-43AF-4F21-910D-7AE396555E6B} = {FFC98C56-67CC-482E-AD19-6D749BCB6B10}
+		{D7BD1FD0-BF5C-47DD-94A9-312423A2FA6D} = {358A0A6E-43AF-4F21-910D-7AE396555E6B}
+		{4901E86D-67AC-46E7-84AF-9200FBB86AE7} = {BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}
+		{A568BADE-BB04-4365-918F-97E9C91C140F} = {4901E86D-67AC-46E7-84AF-9200FBB86AE7}
+		{510FF413-F201-4AF7-8E37-1C95F21A5731} = {A568BADE-BB04-4365-918F-97E9C91C140F}
+		{58F37608-3EFB-4D11-AF4E-B72A895306FF} = {BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}
+		{7D684C1A-A098-44E0-BFC1-2A3299057E38} = {58F37608-3EFB-4D11-AF4E-B72A895306FF}
+		{4AADE6A3-B764-44DF-973A-8BD9E05E30E3} = {7D684C1A-A098-44E0-BFC1-2A3299057E38}
+		{48DD1F16-7840-439C-8A12-21810FF94392} = {BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}
+		{437AA244-B2C4-464D-9F6F-8AB75DDB3862} = {48DD1F16-7840-439C-8A12-21810FF94392}
+		{93BB37E7-0BBD-4D66-8524-78024974249F} = {437AA244-B2C4-464D-9F6F-8AB75DDB3862}
+		{C7A07236-3BC6-4968-9B8F-9313358D052B} = {BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}
+		{FF14D528-7EAC-4A45-A5B0-4867E9EE8C20} = {C7A07236-3BC6-4968-9B8F-9313358D052B}
+		{87294D63-E624-450B-95E5-5DFBC7356CBD} = {FF14D528-7EAC-4A45-A5B0-4867E9EE8C20}
+		{08C97D3A-E85E-4512-9086-F1CD55342E18} = {BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}
+		{23A5BD5A-2EAB-4920-A4D5-310E244D7F0E} = {08C97D3A-E85E-4512-9086-F1CD55342E18}
+		{5549A190-DB26-40B0-B5A9-7BBE46274E39} = {23A5BD5A-2EAB-4920-A4D5-310E244D7F0E}
+		{0E61F3F9-9354-4C9C-AB65-9DC7F3372457} = {7CBCC20E-E255-4C5D-B388-08A8ED9266F4}
+		{985B6AEA-2AD4-4C0C-BD54-8CC4B48EBB8E} = {0E61F3F9-9354-4C9C-AB65-9DC7F3372457}
+		{C4D022C0-F6F6-4CDF-B414-F62479930387} = {985B6AEA-2AD4-4C0C-BD54-8CC4B48EBB8E}
+		{FFC182DA-3627-49B6-A663-E7C5572ED5C4} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
+		{52842AA3-DE82-42FD-AD90-7926BED75FB9} = {BE83E7A7-57A2-4D1E-8B12-D33553E4BB31}
+		{9D54E256-C751-423C-8DB7-3DB93AD817A7} = {52842AA3-DE82-42FD-AD90-7926BED75FB9}
+		{E21364D1-E98E-4B14-8823-7265EB1B7DD8} = {9D54E256-C751-423C-8DB7-3DB93AD817A7}
+		{DC73BF8C-767F-43E8-BB75-E28548E161AC} = {785AA0DE-6337-4DBA-BB19-87A979DA5742}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2D9BAD4-B595-4651-B30C-550998B67040}
@@ -203,10 +350,21 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		SharedProject\SharedProject.projitems*{1db93bbc-4534-4a2a-a88a-976da45f6ef9}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{43502512-cbf0-49c0-b688-af223cc707fd}*SharedItemsImports = 5
+		SharedProjectIAS\SharedProjectIAS.projitems*{4aade6a3-b764-44df-973a-8bd9e05e30e3}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{4f9c7bcd-9535-46cf-9ac9-55dd862bd44e}*SharedItemsImports = 5
+		SharedProjectIAS\SharedProjectIAS.projitems*{510ff413-f201-4af7-8e37-1c95f21a5731}*SharedItemsImports = 5
+		SharedProjectIAS\SharedProjectIAS.projitems*{54f51c6c-044f-4e97-bbb9-cd7de087b2e5}*SharedItemsImports = 5
+		SharedProjectIAS\SharedProjectIAS.projitems*{5549a190-db26-40b0-b5a9-7bbe46274e39}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{7c2c0c2b-160e-4076-b4a1-cec129d9e74e}*SharedItemsImports = 5
+		SharedProjectIAS\SharedProjectIAS.projitems*{87294d63-e624-450b-95e5-5dfbc7356cbd}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{90038565-cac7-4cfd-bff3-c1dc780e249f}*SharedItemsImports = 13
+		SharedProjectIAS\SharedProjectIAS.projitems*{93bb37e7-0bbd-4d66-8524-78024974249f}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{967efa36-3ef5-4b42-a63e-9e4b50be8297}*SharedItemsImports = 5
-		SharedProject\SharedProject.projitems*{b3b95cd7-be59-4ebe-ad24-d5afbc3a7fad}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{c4d022c0-f6f6-4cdf-b414-f62479930387}*SharedItemsImports = 5
+		SharedProjectIAS\SharedProjectIAS.projitems*{d7bd1fd0-bf5c-47dd-94a9-312423a2fa6d}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{dc73bf8c-767f-43e8-bb75-e28548e161ac}*SharedItemsImports = 5
+		SharedProjectIAS\SharedProjectIAS.projitems*{e21364d1-e98e-4b14-8823-7265eb1b7dd8}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{f76a1b9b-928a-46e0-91ab-061c9cc9898b}*SharedItemsImports = 5
+		SharedProjectIAS\SharedProjectIAS.projitems*{ffc182da-3627-49b6-a663-e7c5572ed5c4}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

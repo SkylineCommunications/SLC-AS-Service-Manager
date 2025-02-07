@@ -3,7 +3,7 @@ namespace Get_ServiceOrderItemsMultipleSections_1
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    // Required to mark the interface as a GQI data source 
+    // Required to mark the interface as a GQI data source
     using Skyline.DataMiner.Analytics.GenericInterface;
     using Skyline.DataMiner.Automation;
     using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
@@ -99,7 +99,7 @@ namespace Get_ServiceOrderItemsMultipleSections_1
                 return rows.ToArray();
             }
 
-            // will initiate DomHelper 
+            // will initiate DomHelper
             LoadApplicationHandlersAndHelpers();
 
             var domEventIntanceId = new DomInstanceId(instanceDomId);
@@ -134,7 +134,7 @@ namespace Get_ServiceOrderItemsMultipleSections_1
 
         public DMSMessage GenerateInformationEvent(string message)
         {
-            var generateAlarmMessage = new GenerateAlarmMessage(GenerateAlarmMessage.AlarmSeverity.Information, message);
+            var generateAlarmMessage = new GenerateAlarmMessage(GenerateAlarmMessage.AlarmSeverity.Information, message) { Status = GenerateAlarmMessage.AlarmStatus.Cleared };
             return dms.SendMessage(generateAlarmMessage);
         }
     }

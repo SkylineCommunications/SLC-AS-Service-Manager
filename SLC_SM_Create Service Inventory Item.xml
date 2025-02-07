@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DMSScript options="272" xmlns="http://www.skyline.be/automation">
-	<Name>Create Service</Name>
+	<Name>SLC_SM_Create Service Inventory Item</Name>
 	<Description></Description>
 	<Type>Automation</Type>
 	<Author>SKYLINE2\JonasKO</Author>
@@ -23,11 +23,17 @@
 		<ScriptParameter id="3" type="string" values="">
 			<Description>Service Specification</Description>
 		</ScriptParameter>
+		<ScriptParameter id="4" type="string" values="">
+			<Description>Date Start</Description>
+		</ScriptParameter>
+		<ScriptParameter id="5" type="string" values="">
+			<Description>Date End</Description>
+		</ScriptParameter>
 	</Parameters>
 
 	<Script>
 		<Exe id="10" type="csharp">
-			<Value><![CDATA[[Project:Create Service_1]]]></Value>
+			<Value><![CDATA[[Project:SLC_SM_Create Service Inventory Item_1]]]></Value>
 			<!--<Param type="debug">true</Param>-->
 			<Message></Message>
 		</Exe>

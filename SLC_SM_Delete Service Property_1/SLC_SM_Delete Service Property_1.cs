@@ -49,7 +49,7 @@ dd/mm/2025	1.0.0.1		XXX, Skyline	Initial version
 ****************************************************************************
 */
 
-namespace Add_Property_Values_to_Service_Order_Item_1
+namespace SLC_SM_Delete_Service_Property_1
 {
 	using System;
 	using System.Collections.Generic;
@@ -58,13 +58,14 @@ namespace Add_Property_Values_to_Service_Order_Item_1
 	using Newtonsoft.Json;
 	using Skyline.DataMiner.Automation;
 	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
+	using Skyline.DataMiner.Net.Messages.SLDataGateway;
 
 	/// <summary>
 	/// Represents a DataMiner Automation script.
 	/// </summary>
 	public class Script
 	{
-		DomHelper _domHelper;
+		private IEngine _engine;
 
 		/// <summary>
 		/// The script entry point.
@@ -74,75 +75,98 @@ namespace Add_Property_Values_to_Service_Order_Item_1
 		{
 			try
 			{
-				InitHelpers(engine);
-
-				RunSafe(engine);
+				_engine = engine;
+				RunSafe();
 			}
 			catch (ScriptAbortException)
 			{
 				// Catch normal abort exceptions (engine.ExitFail or engine.ExitSuccess)
-				throw; // Comment if it should be treated as a normal exit of the script.
 			}
 			catch (ScriptForceAbortException)
 			{
 				// Catch forced abort exceptions, caused via external maintenance messages.
-				throw;
 			}
 			catch (ScriptTimeoutException)
 			{
 				// Catch timeout exceptions for when a script has been running for too long.
-				throw;
 			}
 			catch (InteractiveUserDetachedException)
 			{
 				// Catch a user detaching from the interactive script by closing the window.
 				// Only applicable for interactive scripts, can be removed for non-interactive scripts.
-				throw;
 			}
 			catch (Exception e)
 			{
-				engine.ExitFail("Run|Something went wrong: " + e);
+				engine.ExitFail(e.Message);
 			}
 		}
 
-		private void RunSafe(IEngine engine)
+		private void RunSafe()
 		{
-			string propertiesParam = engine.GetScriptParam("Property Values ID").Value;
-			Guid propertiesDomId = JsonConvert.DeserializeObject<List<Guid>>(propertiesParam).Single();
-
-			string objectParam = engine.GetScriptParam("Object ID").Value;
-			Guid domId = JsonConvert.DeserializeObject<List<Guid>>(objectParam).Single();
-
-			engine.GenerateInformation($"{propertiesDomId.ToString()} - {domId.ToString()}");
-
-			var domIntanceId = new DomInstanceId(domId);
-
-			// create filter to filter event instances with specific dom event ids
-			var filter = DomInstanceExposers.Id.Equal(domIntanceId);
-			var domInstance = _domHelper.DomInstances.Read(filter).FirstOrDefault()
-				?? throw new InvalidOperationException($"DOM Instance with ID '{domId}' does not exist on the system.");
-
-			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
+			string domIdRaw = _engine.GetScriptParam("DOM ID").Value;
+			if (!Guid.TryParse(domIdRaw.Trim('"', '[', ']'), out Guid domId))
 			{
-				var serviceOrderItemInstance = new ServiceOrderItemsInstance(domInstance);
-				serviceOrderItemInstance.ServiceOrderItemServiceInfo.Properties = propertiesDomId;
-				serviceOrderItemInstance.Save(_domHelper);
+				throw new InvalidOperationException("No DOM ID provided as input to the script");
 			}
-			else if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceSpecifications.Id)
+
+			if (!Guid.TryParse(_engine.GetScriptParam("Service Property ID").Value.Trim('"', '[', ']'), out Guid propertyId))
 			{
-				var serviceSpecInstance = new ServiceSpecificationsInstance(domInstance);
-				serviceSpecInstance.ServiceSpecificationInfo.ServiceProperties = propertiesDomId;
-				serviceSpecInstance.Save(_domHelper);
+				throw new InvalidOperationException("No Service Property ID provided for the script action");
 			}
-			else
-			{
-				throw new Exception($"DOM definition {domInstance.DomDefinitionId.ToString()} linked to instance with Object ID not supported");
-			}
+
+			var domHelper = new DomHelper(_engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
+			var domInstance = domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(domId)).FirstOrDefault()
+							  ?? throw new InvalidOperationException($"No DOM Instance with ID '{domId}' found on the system!");
+
+			// Get or create the service property value
+			var propertyValueInstance = GetServicePropertySection(domHelper, domInstance);
+
+			DeleteServiceItemFromInstance(domHelper, propertyValueInstance, propertyId);
+			throw new ScriptAbortException("OK");
 		}
 
-		private void InitHelpers(IEngine engine)
+		private static ServicePropertyValuesInstance GetServicePropertySection(DomHelper domHelper, DomInstance domInstance)
 		{
-			_domHelper = new DomHelper(engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
+			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.Services.Id)
+			{
+				var instance = new ServicesInstance(domInstance);
+				return GetServicePropertyValueInstance(domHelper, instance.ServiceInfo.ServiceProperties);
+			}
+
+			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceSpecifications.Id)
+			{
+				var instance = new ServiceSpecificationsInstance(domInstance);
+				return GetServicePropertyValueInstance(domHelper, instance.ServiceSpecificationInfo.ServiceProperties);
+			}
+
+			throw new InvalidOperationException($"No Service Property item found linked to DOM Instance '{domInstance.ID.Id}'");
+		}
+
+		private static ServicePropertyValuesInstance GetServicePropertyValueInstance(DomHelper domHelper, Guid? id)
+		{
+			if (!id.HasValue)
+			{
+				throw new InvalidOperationException("No Service Properties linked to the DOM Instance");
+			}
+
+			Guid usedPropertyValue = id.Value;
+
+			var domInstance = domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(usedPropertyValue)).FirstOrDefault()
+							  ?? throw new InvalidOperationException($"DOM Instance with ID '{usedPropertyValue}' does not exist on the system");
+
+			return new ServicePropertyValuesInstance(domInstance);
+		}
+
+		private static void DeleteServiceItemFromInstance(DomHelper helper, ServicePropertyValuesInstance domInstance, Guid propertyId)
+		{
+			var itemToRemove = domInstance.ServicePropertyValue.FirstOrDefault(x => x.Property == propertyId);
+			if (itemToRemove == null)
+			{
+				throw new InvalidOperationException($"No Property exists with ID '{propertyId}' to remove");
+			}
+
+			domInstance.ServicePropertyValue.Remove(itemToRemove);
+			domInstance.Save(helper);
 		}
 	}
 }
