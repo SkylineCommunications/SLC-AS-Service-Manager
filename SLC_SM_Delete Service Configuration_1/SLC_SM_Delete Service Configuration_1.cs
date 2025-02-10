@@ -137,6 +137,12 @@ namespace SLC_SM_Delete_Service_Configuration_1
 				return GetServiceConfigurationValueInstance(domHelper, instance.ServiceSpecificationInfo.ServiceConfiguration);
 			}
 
+			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
+			{
+				var instance = new ServiceOrderItemsInstance(domInstance);
+				return GetServiceConfigurationValueInstance(domHelper, instance.ServiceOrderItemServiceInfo.Configuration);
+			}
+
 			throw new InvalidOperationException($"No Service Property item found linked to DOM Instance '{domInstance.ID.Id}'");
 		}
 

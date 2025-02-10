@@ -179,7 +179,7 @@ namespace SLC_SM_IAS_Add_Service_Order_Item_1
 
 			// Init views
 			var view = new ServiceOrderItemView(_engine);
-			var presenter = new ServiceOrderItemPresenter(_engine, view, repo, GetServiceItemLabels(repo, orderItem?.Name));
+			var presenter = new ServiceOrderItemPresenter(_engine, domHelper, view, repo, GetServiceItemLabels(repo, orderItem?.Name));
 
 			// Events
 			view.BtnCancel.Pressed += (sender, args) => throw new ScriptAbortException("OK");

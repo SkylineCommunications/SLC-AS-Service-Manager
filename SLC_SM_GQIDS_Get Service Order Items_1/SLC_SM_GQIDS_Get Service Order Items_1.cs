@@ -66,6 +66,47 @@ namespace SLC_SM_GQIDS_Get_Service_Order_Items_1
 			return default;
 		}
 
+		private static GQIRow BuildRow(ServiceOrderItemsInstance item, Repo repo)
+		{
+			return new GQIRow(
+				new[]
+				{
+					new GQICell { Value = item.ID.Id.ToString() },
+					new GQICell { Value = item.ServiceOrderItemInfo.Name },
+					new GQICell { Value = item.ServiceOrderItemInfo.Action },
+					new GQICell
+					{
+						Value = item.ServiceOrderItemServiceInfo.ServiceCategory.HasValue
+							? repo.AllCategories.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.ServiceCategory)?.Name ?? String.Empty
+							: String.Empty,
+					},
+					new GQICell
+					{
+						Value = item.ServiceOrderItemServiceInfo.ServiceSpecification.HasValue
+							? repo.AllSpecs.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.ServiceSpecification)?.Name ?? String.Empty
+							: String.Empty,
+					},
+					new GQICell
+					{
+						Value = item.ServiceOrderItemServiceInfo.Service.HasValue
+							? repo.AllServices.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.Service)?.ServiceInfo.Name ?? String.Empty
+							: String.Empty,
+					},
+					new GQICell
+					{
+						Value = item.ServiceOrderItemServiceInfo.Properties.HasValue
+							? repo.AllProperties.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.Properties)?.ServicePropertyInfo.Name ?? String.Empty
+							: String.Empty,
+					},
+					new GQICell
+					{
+						Value = item.ServiceOrderItemServiceInfo.Configuration.HasValue
+							? repo.AllConfigurations.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.Properties)?.ID.Id.ToString()
+							: String.Empty,
+					},
+				});
+		}
+
 		private GQIRow[] GetMultiSection()
 		{
 			if (_instanceDomId == Guid.Empty)
@@ -86,7 +127,10 @@ namespace SLC_SM_GQIDS_Get_Service_Order_Items_1
 
 			var instance = new ServiceOrdersInstance(domInstance);
 
-			var linkedIds = instance.ServiceOrderItems.Where(x => x.ServiceOrderItem.HasValue).Select(x => x.ServiceOrderItem.Value).ToArray();
+			var linkedIds = instance.ServiceOrderItems
+				.Where(x => x.ServiceOrderItem.HasValue && x.ServiceOrderItem != Guid.Empty)
+				.Select(x => x.ServiceOrderItem.Value)
+				.ToArray();
 
 			FilterElement<DomInstance> filter = new ORFilterElement<DomInstance>();
 			foreach (Guid linkedId in linkedIds)
@@ -94,27 +138,25 @@ namespace SLC_SM_GQIDS_Get_Service_Order_Items_1
 				filter = filter.OR(DomInstanceExposers.Id.Equal(linkedId));
 			}
 
-			var instances = _domHelper.DomInstances.Read(filter).Select(x => new ServiceOrderItemsInstance(x)).ToArray();
+			var instances = _domHelper.DomInstances.Read(filter)
+				.Select(
+					x =>
+					{
+						try
+						{
+							return new ServiceOrderItemsInstance(x);
+						}
+						catch (Exception)
+						{
+							return null;
+						}
+					})
+				.Where(x => x != null)
+				.ToArray();
 
 			var repo = new Repo(_domHelper);
 
 			return instances.Select(item => BuildRow(item, repo)).ToArray();
-		}
-
-		private static GQIRow BuildRow(ServiceOrderItemsInstance item, Repo repo)
-		{
-			return new GQIRow(
-				new[]
-				{
-					new GQICell { Value = item.ID.Id.ToString() },
-					new GQICell { Value = item.ServiceOrderItemInfo.Name},
-					new GQICell { Value = item.ServiceOrderItemInfo.Action },
-					new GQICell { Value = item.ServiceOrderItemServiceInfo.ServiceCategory.HasValue ? repo.AllCategories.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.ServiceCategory)?.Name ?? String.Empty : String.Empty },
-					new GQICell { Value = item.ServiceOrderItemServiceInfo.ServiceSpecification.HasValue ? repo.AllSpecs.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.ServiceSpecification)?.Name ?? String.Empty : String.Empty },
-					new GQICell { Value = item.ServiceOrderItemServiceInfo.Service.HasValue ? repo.AllServices.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.Service)?.ServiceInfo.Name ?? String.Empty : String.Empty },
-					new GQICell { Value = item.ServiceOrderItemServiceInfo.Properties.HasValue ? repo.AllProperties.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.Properties)?.ServicePropertyInfo.Name ?? String.Empty : String.Empty },
-					new GQICell { Value = item.ServiceOrderItemServiceInfo.Configuration.HasValue ? repo.AllConfigurations.FirstOrDefault(x => x.ID.Id == item.ServiceOrderItemServiceInfo.Properties)?.ID.Id.ToString() : String.Empty },
-				});
 		}
 
 		private void LoadApplicationHandlersAndHelpers()

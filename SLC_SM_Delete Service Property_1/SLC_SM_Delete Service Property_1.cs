@@ -52,10 +52,8 @@ dd/mm/2025	1.0.0.1		XXX, Skyline	Initial version
 namespace SLC_SM_Delete_Service_Property_1
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Linq;
 	using DomHelpers.SlcServicemanagement;
-	using Newtonsoft.Json;
 	using Skyline.DataMiner.Automation;
 	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
 	using Skyline.DataMiner.Net.Messages.SLDataGateway;
@@ -137,6 +135,12 @@ namespace SLC_SM_Delete_Service_Property_1
 			{
 				var instance = new ServiceSpecificationsInstance(domInstance);
 				return GetServicePropertyValueInstance(domHelper, instance.ServiceSpecificationInfo.ServiceProperties);
+			}
+
+			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
+			{
+				var instance = new ServiceOrderItemsInstance(domInstance);
+				return GetServicePropertyValueInstance(domHelper, instance.ServiceOrderItemServiceInfo.Properties);
 			}
 
 			throw new InvalidOperationException($"No Service Property item found linked to DOM Instance '{domInstance.ID.Id}'");

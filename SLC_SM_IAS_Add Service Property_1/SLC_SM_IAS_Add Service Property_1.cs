@@ -170,6 +170,21 @@ namespace SLC_SM_IAS_Add_Service_Property_1
 				return spvi;
 			}
 
+			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
+			{
+				var instance = new ServiceOrderItemsInstance(domInstance);
+				var spvi = GetServicePropertyValueInstance(domHelper, instance.ServiceOrderItemServiceInfo.Properties);
+
+				if (instance.ServiceOrderItemServiceInfo.Properties != spvi.ID.Id)
+				{
+					// Link created property value
+					instance.ServiceOrderItemServiceInfo.Properties = spvi.ID.Id;
+					instance.Save(domHelper);
+				}
+
+				return spvi;
+			}
+
 			throw new InvalidOperationException($"No Service Property item found linked to DOM Instance '{domInstance.ID.Id}'");
 		}
 

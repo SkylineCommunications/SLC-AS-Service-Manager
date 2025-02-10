@@ -128,10 +128,15 @@ namespace SLC_SM_IAS_Add_Service_Configuration_1
 		private static void AddOrUpdateServiceConfigurationToInstance(DomHelper helper, ServiceConfigurationInstance domInstance, ServiceConfigurationParametersValuesSection newSection, string oldLabel)
 		{
 			// Remove old instance first in case of edit
-			var oldItem = domInstance.ServiceConfigurationParametersValues.FirstOrDefault(x => x.Label == oldLabel);
-			if (oldItem != null)
+			var oldItems = domInstance.ServiceConfigurationParametersValues
+				.Where(x => x.Label == oldLabel || String.IsNullOrEmpty(x.Label))
+				.ToList();
+			if (oldItems.Any())
 			{
-				domInstance.ServiceConfigurationParametersValues.Remove(oldItem);
+				foreach (var oldItem in oldItems)
+				{
+					domInstance.ServiceConfigurationParametersValues.Remove(oldItem);
+				}
 			}
 
 			domInstance.ServiceConfigurationParametersValues.Add(newSection);
@@ -164,6 +169,21 @@ namespace SLC_SM_IAS_Add_Service_Configuration_1
 				{
 					// Link created configuration value
 					instance.ServiceSpecificationInfo.ServiceConfiguration = sci.ID.Id;
+					instance.Save(domHelper);
+				}
+
+				return sci;
+			}
+
+			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
+			{
+				var instance = new ServiceOrderItemsInstance(domInstance);
+				var sci = GetServiceConfigurationValueInstance(domHelper, instance.ServiceOrderItemServiceInfo.Configuration);
+
+				if (instance.ServiceOrderItemServiceInfo.Configuration != sci.ID.Id)
+				{
+					// Link created configuration value
+					instance.ServiceOrderItemServiceInfo.Configuration = sci.ID.Id;
 					instance.Save(domHelper);
 				}
 
@@ -208,6 +228,11 @@ namespace SLC_SM_IAS_Add_Service_Configuration_1
 			{
 				var instance = new ServiceSpecificationsInstance(domInstance);
 				usedConfig = instance.ServiceSpecificationInfo.ServiceConfiguration.Value;
+			}
+			else if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
+			{
+				var instance = new ServiceOrderItemsInstance(domInstance);
+				usedConfig = instance.ServiceOrderItemServiceInfo.Configuration.Value;
 			}
 			else
 			{

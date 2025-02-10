@@ -107,14 +107,17 @@ namespace Get_ServiceConfiguration_1
 			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.Services.Id)
 			{
 				var instance = new ServicesInstance(domInstance);
-
 				serviceConfigurationGuid = instance.ServiceInfo.ServiceConfiguration ?? Guid.Empty;
 			}
 			else if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceSpecifications.Id)
 			{
 				var instance = new ServiceSpecificationsInstance(domInstance);
-
 				serviceConfigurationGuid = instance.ServiceSpecificationInfo.ServiceConfiguration ?? Guid.Empty;
+			}
+			else if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
+			{
+				var instance = new ServiceOrderItemsInstance(domInstance);
+				serviceConfigurationGuid = instance.ServiceOrderItemServiceInfo.Configuration ?? Guid.Empty;
 			}
 			else
 			{
@@ -148,7 +151,7 @@ namespace Get_ServiceConfiguration_1
 								new GQICell { Value = item.ServiceParameterID ?? String.Empty },
 								new GQICell { Value = item.ProfileParameterID ?? String.Empty },
 								new GQICell { Value = (bool)(item.Mandatory ?? false) },
-								new GQICell { Value = item.DoubleValue.HasValue ? Convert.ToString(item.DoubleValue) : item.StringValue },
+								new GQICell { Value = !String.IsNullOrWhiteSpace(item.StringValue) ? item.StringValue : Convert.ToString(item.DoubleValue) },
 							})
 					);
 				});

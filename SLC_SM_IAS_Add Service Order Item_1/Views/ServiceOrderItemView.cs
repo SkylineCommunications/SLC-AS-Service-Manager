@@ -23,10 +23,6 @@
 			AddWidget(ActionType, row, 1);
 
 			AddWidget(new Label("Service Order Configuration Details") { Style = TextStyle.Heading }, ++row, 0);
-			AddWidget(LblConfiguration, ++row, 0);
-			AddWidget(Configuration, row, 1);
-			AddWidget(LblProperties, ++row, 0);
-			AddWidget(Properties, row, 1);
 			AddWidget(LblCategory, ++row, 0);
 			AddWidget(Category, row, 1);
 			AddWidget(LblSpecification, ++row, 0);
@@ -73,21 +69,13 @@
 
 		public DropDown<ServiceCategoryInstance> Category { get; } = new DropDown<ServiceCategoryInstance> { Width = Defaults.WidgetWidth };
 
-		public Label LblConfiguration { get; } = new Label("Configuration");
-
-		public DropDown<ServiceConfigurationInstance> Configuration { get; } = new DropDown<ServiceConfigurationInstance> { Width = Defaults.WidgetWidth };
-
 		public Label LblSpecification { get; } = new Label("Service Specification");
 
 		public DropDown<ServiceSpecificationsInstance> Specification { get; } = new DropDown<ServiceSpecificationsInstance> { Width = Defaults.WidgetWidth };
 
-		public Label LblService { get; } = new Label("Service Item");
+		public Label LblService { get; } = new Label("Service Reference");
 
 		public DropDown<ServicesInstance> Service { get; } = new DropDown<ServicesInstance> { Width = Defaults.WidgetWidth };
-
-		public Label LblProperties { get; } = new Label("Properties");
-
-		public DropDown<ServicePropertyValuesInstance> Properties { get; } = new DropDown<ServicePropertyValuesInstance> { Width = Defaults.WidgetWidth };
 
 		public Button BtnAdd { get; } = new Button("Add");
 

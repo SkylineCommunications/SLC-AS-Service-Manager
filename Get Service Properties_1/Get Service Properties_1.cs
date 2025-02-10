@@ -97,6 +97,11 @@ namespace Get_Service_Properties_1
 				var instance = new ServiceSpecificationsInstance(domInstance);
 				servicePropertyInstanceId = instance.ServiceSpecificationInfo.ServiceProperties ?? Guid.Empty;
 			}
+			else if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
+			{
+				var instance = new ServiceOrderItemsInstance(domInstance);
+				servicePropertyInstanceId = instance.ServiceOrderItemServiceInfo.Properties ?? Guid.Empty;
+			}
 			else
 			{
 				// No other options to configure
