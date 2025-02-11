@@ -53,28 +53,23 @@ namespace Add_Property_Values_to_Service_Order_Item_1
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Globalization;
-	using System.Text;
+	using System.Linq;
+	using DomHelpers.SlcServicemanagement;
+	using Newtonsoft.Json;
 	using Skyline.DataMiner.Automation;
-    using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
+	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
 
-    using DomHelpers.SlcServicemanagement;
-    using System.Linq;
-    using Newtonsoft.Json;
-
-    /// <summary>
-    /// Represents a DataMiner Automation script.
-    /// </summary>
-    public class Script
+	/// <summary>
+	/// Represents a DataMiner Automation script.
+	/// </summary>
+	public class Script
 	{
+		DomHelper _domHelper;
+
 		/// <summary>
 		/// The script entry point.
 		/// </summary>
 		/// <param name="engine">Link with SLAutomation process.</param>
-		/// 
-
-		DomHelper _DomHelper;
-
 		public void Run(IEngine engine)
 		{
 			try
@@ -112,51 +107,42 @@ namespace Add_Property_Values_to_Service_Order_Item_1
 
 		private void RunSafe(IEngine engine)
 		{
-            // TODO: Define code here
+			string propertiesParam = engine.GetScriptParam("Property Values ID").Value;
+			Guid propertiesDomId = JsonConvert.DeserializeObject<List<Guid>>(propertiesParam).Single();
 
-            string propertiesParam = engine.GetScriptParam("Property Values ID").Value;
-            Guid propertiesDomId = JsonConvert.DeserializeObject<List<Guid>>(propertiesParam).Single();
+			string objectParam = engine.GetScriptParam("Object ID").Value;
+			Guid domId = JsonConvert.DeserializeObject<List<Guid>>(objectParam).Single();
 
-            string objectParam = engine.GetScriptParam("Object ID").Value;
-            Guid domId = JsonConvert.DeserializeObject<List<Guid>>(objectParam).Single();
-
-            engine.GenerateInformation($"{propertiesDomId.ToString()} - {domId.ToString()}");
-
-			//var domPropertiesIntanceId = new DomInstanceId(Guid.Parse(propertiesParam));
-			//// create filter to filter event instances with specific dom event ids
-			//var filter = DomInstanceExposers.Id.Equal(domPropertiesIntanceId);
-			//var domPropertiesInstance = _DomHelper.DomInstances.Read(filter).First<DomInstance>();
-			//var servicePropertyValuesinstance = new ServicePropertyValuesInstance(domPropertiesInstance);
-
+			engine.GenerateInformation($"{propertiesDomId.ToString()} - {domId.ToString()}");
 
 			var domIntanceId = new DomInstanceId(domId);
-            // create filter to filter event instances with specific dom event ids
-            var filter = DomInstanceExposers.Id.Equal(domIntanceId);
-            var domInstance = _DomHelper.DomInstances.Read(filter).First<DomInstance>();
+
+			// create filter to filter event instances with specific dom event ids
+			var filter = DomInstanceExposers.Id.Equal(domIntanceId);
+			var domInstance = _domHelper.DomInstances.Read(filter).FirstOrDefault()
+				?? throw new InvalidOperationException($"DOM Instance with ID '{domId}' does not exist on the system.");
 
 			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
 			{
-                var serviceOrderItemInstance = new ServiceOrderItemsInstance(domInstance);
-                serviceOrderItemInstance.ServiceOrderItemServiceInfo.Properties = propertiesDomId;
-                serviceOrderItemInstance.Save(_DomHelper);
-            } 
+				var serviceOrderItemInstance = new ServiceOrderItemsInstance(domInstance);
+				serviceOrderItemInstance.ServiceOrderItemServiceInfo.Properties = propertiesDomId;
+				serviceOrderItemInstance.Save(_domHelper);
+			}
 			else if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceSpecifications.Id)
 			{
-                var serviceSpecInstance = new ServiceSpecificationsInstance(domInstance);
-                serviceSpecInstance.ServiceSpecificationInfo.ServiceProperties = propertiesDomId;
-                serviceSpecInstance.Save(_DomHelper);
-            }
+				var serviceSpecInstance = new ServiceSpecificationsInstance(domInstance);
+				serviceSpecInstance.ServiceSpecificationInfo.ServiceProperties = propertiesDomId;
+				serviceSpecInstance.Save(_domHelper);
+			}
 			else
 			{
 				throw new Exception($"DOM definition {domInstance.DomDefinitionId.ToString()} linked to instance with Object ID not supported");
 			}
-
-        }
+		}
 
 		private void InitHelpers(IEngine engine)
 		{
-            _DomHelper = new DomHelper(engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
-        }
-
+			_domHelper = new DomHelper(engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
+		}
 	}
 }

@@ -17,6 +17,9 @@
 		<ScriptParameter id="1" type="string" values="">
 			<Description>Script Name</Description>
 		</ScriptParameter>
+		<ScriptParameter id="2" type="string" values="">
+			<Description>Booking Manager Element Name</Description>
+		</ScriptParameter>
 	</Parameters>
 
 	<Script>

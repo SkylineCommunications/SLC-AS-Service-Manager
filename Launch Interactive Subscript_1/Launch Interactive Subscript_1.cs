@@ -53,48 +53,65 @@ namespace Launch_Interactive_Subscript_1
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Globalization;
-    using System.Linq;
-    using System.Text;
-    using Newtonsoft.Json;
-    using Skyline.DataMiner.Automation;
-    using Skyline.DataMiner.Net.Jobs;
+	using System.Linq;
+	using Newtonsoft.Json;
+	using Skyline.DataMiner.Automation;
 
-    /// <summary>
-    /// Represents a DataMiner Automation script.
-    /// </summary>
-    public class Script
-    {
-        /// <summary>
-        /// The script entry point.
-        /// </summary>
-        /// <param name="engine">Link with SLAutomation process.</param>
-        public void Run(IEngine engine)
-        {
-            // Don't remove
-            //// engine.ShowUI();
+	/// <summary>
+	/// Represents a DataMiner Automation script.
+	/// </summary>
+	public class Script
+	{
+		/// <summary>
+		/// The script entry point.
+		/// </summary>
+		/// <param name="engine">Link with SLAutomation process.</param>
+		public void Run(IEngine engine)
+		{
+			/*
+			* Note:
+			* Do not remove the commented methods below!
+			* The lines are needed to execute an interactive automation script from the non-interactive automation script or from Visio!
+			*
+			* engine.ShowUI();
+			*/
+			if (engine.IsInteractive)
+			{
+				engine.FindInteractiveClient("Failed to run script in interactive mode", 1);
+			}
 
-            string scriptNameParam = engine.GetScriptParam("Script Name").Value;
-            engine.GenerateInformation("TEST1");
-            string scriptName = JsonConvert.DeserializeObject<List<string>>(scriptNameParam).Single();
+			try
+			{
+				string scriptNameParam = engine.GetScriptParam("Script Name").Value;
+				string scriptName = JsonConvert.DeserializeObject<List<string>>(scriptNameParam).FirstOrDefault()
+									?? throw new InvalidOperationException("No Service Item Script provided to run the action");
 
-            RunScript(engine, scriptName);
-        }
+				string bookingManagerElementName = JsonConvert.DeserializeObject<List<string>>(engine.GetScriptParam("Booking Manager Element Name").Value).FirstOrDefault()
+												   ?? throw new InvalidOperationException("No Booking Manager Reference provided to run the action");
+
+				RunScript(engine, scriptName, bookingManagerElementName);
+			}
+			catch (Exception e)
+			{
+				engine.ExitFail(e.Message);
+			}
+		}
 
 
-        private void RunScript(IEngine engine, string scriptName)
-        {
-            engine.GenerateInformation("TEST");
-            var subScript = engine.PrepareSubScript(scriptName);
-            subScript.Synchronous = true;
-            subScript.ExtendedErrorInfo = true;
+		private static void RunScript(IEngine engine, string scriptName, string bookingManagerElementName)
+		{
+			var subScript = engine.PrepareSubScript(scriptName);
+			subScript.Synchronous = true;
+			subScript.ExtendedErrorInfo = true;
 
-            subScript.StartScript();
+			subScript.SelectScriptParam("Booking Manager Element Info", "{ \"Element\":\"" + bookingManagerElementName + "\",\"TableIndex\":\"\",\"Action\":\"New\"}");
 
-            if (subScript.HadError)
-            {
-                throw new InvalidOperationException(String.Join(@"\r\n", subScript.GetErrorMessages()));
-            }
-        }
-    }
+			subScript.StartScript();
+
+			if (subScript.HadError)
+			{
+				throw new InvalidOperationException(String.Join(@"\r\n", subScript.GetErrorMessages()));
+			}
+		}
+	}
 }
