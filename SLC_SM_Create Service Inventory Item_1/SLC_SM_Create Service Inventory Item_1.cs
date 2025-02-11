@@ -166,7 +166,15 @@ namespace SLC_SM_Create_Service_Inventory_Item_1
 
 			if (action == Action.Add)
 			{
-				presenter.LoadFromModel();
+				if (domId != Guid.Empty)
+				{
+					ServicesInstance newServiceInstance = CreateNewServiceAndLinkItToServiceOrder(domId);
+					presenter.LoadFromModel(newServiceInstance);
+				}
+				else
+				{
+					presenter.LoadFromModel();
+				}
 			}
 			else
 			{
@@ -175,6 +183,38 @@ namespace SLC_SM_Create_Service_Inventory_Item_1
 
 			// Run interactive
 			_controller.ShowDialog(view);
+		}
+
+		private ServicesInstance CreateNewServiceAndLinkItToServiceOrder(Guid domId)
+		{
+			var instance = _domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(domId)).FirstOrDefault()
+				?? throw new InvalidOperationException($"No DOM Instance with ID '{domId}' found on the system!");
+
+			if (instance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.ServiceOrderItems.Id)
+			{
+				var serviceOrderInstance = new ServiceOrderItemsInstance(instance);
+				if (serviceOrderInstance.ServiceOrderItemServiceInfo.Service.HasValue)
+				{
+					var inst = _domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(serviceOrderInstance.ServiceOrderItemServiceInfo.Service.Value)).FirstOrDefault()
+						   ?? throw new InvalidOperationException($"No Dom Instance with ID '{serviceOrderInstance.ServiceOrderItemServiceInfo.Service.Value}' found on the system!");
+					return new ServicesInstance(inst);
+				}
+
+				// Create new service item based on order
+				var newService = new ServicesInstance();
+				newService.ServiceInfo.Name = serviceOrderInstance.ServiceOrderItemInfo.Name;
+				newService.ServiceInfo.Description = serviceOrderInstance.ServiceOrderItemInfo.Name;
+				newService.ServiceInfo.Icon = String.Empty;
+				newService.ServiceInfo.ServiceSpecifcation = serviceOrderInstance.ServiceOrderItemServiceInfo.ServiceSpecification;
+				AddOrUpdateService(newService);
+
+				// Provide link
+				serviceOrderInstance.ServiceOrderItemServiceInfo.Service = newService.ID.Id;
+				serviceOrderInstance.Save(_domHelper);
+				return newService;
+			}
+
+			throw new InvalidOperationException("Creating Service from this definition not supported yet");
 		}
 
 		private ServicesInstance GetServiceItemSection(Guid domId)

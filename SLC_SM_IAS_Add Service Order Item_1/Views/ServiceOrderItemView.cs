@@ -29,6 +29,7 @@
 			AddWidget(Specification, row, 1);
 			AddWidget(LblService, ++row, 0);
 			AddWidget(Service, row, 1);
+			AddWidget(BtnCreateNewService, row, 2);
 
 			AddWidget(new WhiteSpace(), ++row, 0);
 			AddWidget(BtnCancel, ++row, 0);
@@ -80,5 +81,7 @@
 		public Button BtnAdd { get; } = new Button("Add");
 
 		public Button BtnCancel { get; } = new Button("Cancel");
+
+		public Button BtnCreateNewService { get; } = new Button("Create New Service");
 	}
 }
