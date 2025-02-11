@@ -132,7 +132,7 @@
 				return false;
 			}
 
-			if (getServiceOrderItemLabels.Contains(newValue))
+			if (getServiceOrderItemLabels.Contains(newValue, StringComparer.InvariantCultureIgnoreCase))
 			{
 				view.ErrorName.Text = "Label already exists!";
 				return false;

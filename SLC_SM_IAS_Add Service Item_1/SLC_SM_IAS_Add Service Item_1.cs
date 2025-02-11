@@ -141,7 +141,7 @@ namespace SLC_SM_IAS_Add_Service_Item_1
 				{
 					// Auto assign new ID
 					long[] ids = instance.ServiceItems.Where(x => x.ServiceItemID.HasValue).Select(x => x.ServiceItemID.Value).OrderBy(x => x).ToArray();
-					newSection.ServiceItemID = ids.Max() + 1;
+					newSection.ServiceItemID = ids.Any() ? ids.Max() + 1 : 0;
 				}
 
 				instance.ServiceItems.Add(newSection);
@@ -161,7 +161,7 @@ namespace SLC_SM_IAS_Add_Service_Item_1
 				{
 					// Auto assign new ID
 					long[] ids = instance.ServiceItems.Where(x => x.ServiceItemID.HasValue).Select(x => x.ServiceItemID.Value).OrderBy(x => x).ToArray();
-					newSection.ServiceItemID = ids.Max() + 1;
+					newSection.ServiceItemID = ids.Any() ? ids.Max() + 1 : 0;
 				}
 
 				instance.ServiceItems.Add(newSection);

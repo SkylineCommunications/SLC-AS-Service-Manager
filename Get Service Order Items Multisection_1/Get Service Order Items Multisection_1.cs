@@ -1,141 +1,128 @@
 namespace Get_ServiceOrderItemsMultipleSections_1
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    // Required to mark the interface as a GQI data source
-    using Skyline.DataMiner.Analytics.GenericInterface;
-    using Skyline.DataMiner.Automation;
-    using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
-    using Skyline.DataMiner.Net.Messages;
-    using Skyline.DataMiner.Net.Sections;
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using DomHelpers.SlcServicemanagement;
+	using Skyline.DataMiner.Analytics.GenericInterface;
+	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
+	using Skyline.DataMiner.Net.Helper;
+	using Skyline.DataMiner.Net.Messages;
+	using Skyline.DataMiner.Net.Sections;
 
-    using System.Linq;
+	// Required to mark the interface as a GQI data source
+	[GQIMetaData(Name = "Get_ServiceOrderItemsMultipleSections")]
+	public class EventManagerGetMultipleSections : IGQIDataSource, IGQIInputArguments, IGQIOnInit
+	{
+		// defining input argument, will be converted to guid by OnArgumentsProcessed
+		private readonly GQIStringArgument domIdArg = new GQIStringArgument("DOM ID") { IsRequired = false };
 
-    using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
-    using Skyline.DataMiner.Net.Apps.Sections.Sections;
-    using Skyline.DataMiner.Net.Messages;
-    using Skyline.DataMiner.Net.Sections;
+		// variable where input argument will be stored
+		private Guid instanceDomId;
 
-    using DomHelpers;
-    using DomHelpers.SlcServicemanagement;
-    using Skyline.DataMiner.Net.Helper;
-
-    [GQIMetaData(Name = "Get_ServiceOrderItemsMultipleSections")]
-    public class EventManagerGetMultipleSections : IGQIDataSource, IGQIInputArguments, IGQIOnInit
-    {
-        // defining input argument, will be converted to guid by OnArgumentsProcessed
-        private readonly GQIStringArgument domIdArg = new GQIStringArgument("DOM ID") { IsRequired = false };
-        // private readonly GQIStringArgument sectionNameArg = new GQIStringArgument("Section") { IsRequired = true };
-        // variable where input argument will be stored
-        private Guid instanceDomId;
-        //private string sectionName;
-
-        private GQIDMS dms;
-
-        private DomInstance _domInstance;
-
-        private DomHelper _DomHelper;
+		private GQIDMS _dms;
+		private DomInstance _domInstance;
+		private DomHelper _domHelper;
 
 
-        public GQIColumn[] GetColumns()
-        {
+		public GQIColumn[] GetColumns()
+		{
 
-            return new GQIColumn[]
-                {
-                    new GQIStringColumn("Service Order Item"),
-                    new GQIIntColumn("Priority Order"),
-                };
-        }
+			return new GQIColumn[]
+				{
+					new GQIStringColumn("Service Order Item"),
+					new GQIIntColumn("Priority Order"),
+				};
+		}
 
-        public GQIArgument[] GetInputArguments()
-        {
-            return new GQIArgument[] {
-                domIdArg,
+		public GQIArgument[] GetInputArguments()
+		{
+			return new GQIArgument[] {
+				domIdArg,
                 //,
             };
-        }
+		}
 
-        public GQIPage GetNextPage(GetNextPageInputArgs args)
-        {
-            //GenerateInformationEvent("GetNextPage started");
+		public GQIPage GetNextPage(GetNextPageInputArgs args)
+		{
+			//GenerateInformationEvent("GetNextPage started");
 
-            return new GQIPage(GetMultiSection())
-            {
-                HasNextPage = false,
-            };
-        }
+			return new GQIPage(GetMultiSection())
+			{
+				HasNextPage = false,
+			};
+		}
 
-        public OnArgumentsProcessedOutputArgs OnArgumentsProcessed(OnArgumentsProcessedInputArgs args)
-        {
-            // adds the input argument to private variable
-            if (!Guid.TryParse(args.GetArgumentValue(domIdArg), out instanceDomId))
-            {
-                instanceDomId = Guid.Empty;
-            }
+		public OnArgumentsProcessedOutputArgs OnArgumentsProcessed(OnArgumentsProcessedInputArgs args)
+		{
+			// adds the input argument to private variable
+			if (!Guid.TryParse(args.GetArgumentValue(domIdArg), out instanceDomId))
+			{
+				instanceDomId = Guid.Empty;
+			}
 
-            //sectionName = args.GetArgumentValue(sectionNameArg);
+			//sectionName = args.GetArgumentValue(sectionNameArg);
 
-            return new OnArgumentsProcessedOutputArgs();
-        }
+			return new OnArgumentsProcessedOutputArgs();
+		}
 
-        public OnInitOutputArgs OnInit(OnInitInputArgs args)
-        {
-            dms = args.DMS;
+		public OnInitOutputArgs OnInit(OnInitInputArgs args)
+		{
+			_dms = args.DMS;
 
-            return default;
-        }
+			return default;
+		}
 
-        private GQIRow[] GetMultiSection()
-        {
-            //GenerateInformationEvent("Get Service Items Multisection started");
+		private GQIRow[] GetMultiSection()
+		{
+			//GenerateInformationEvent("Get Service Items Multisection started");
 
-            // define output list
-            var rows = new List<GQIRow>();
+			// define output list
+			var rows = new List<GQIRow>();
 
-            if (instanceDomId == Guid.Empty)
-            {
-                // return th empty list
-                return rows.ToArray();
-            }
+			if (instanceDomId == Guid.Empty)
+			{
+				// return th empty list
+				return rows.ToArray();
+			}
 
-            // will initiate DomHelper
-            LoadApplicationHandlersAndHelpers();
+			// will initiate DomHelper
+			LoadApplicationHandlersAndHelpers();
 
-            var domEventIntanceId = new DomInstanceId(instanceDomId);
-            // create filter to filter event instances with specific dom event ids
-            var filter = DomInstanceExposers.Id.Equal(domEventIntanceId);
+			var domEventIntanceId = new DomInstanceId(instanceDomId);
+			// create filter to filter event instances with specific dom event ids
+			var filter = DomInstanceExposers.Id.Equal(domEventIntanceId);
 
-            _domInstance = _DomHelper.DomInstances.Read(filter).First<DomInstance>();
+			_domInstance = _domHelper.DomInstances.Read(filter).First<DomInstance>();
 
-            var instance = new ServiceOrdersInstance(_domInstance);
+			var instance = new ServiceOrdersInstance(_domInstance);
 
-            var serviceItems = instance.ServiceOrderItems;
+			var serviceItems = instance.ServiceOrderItems;
 
-            serviceItems.ForEach(item =>
-            {
-                rows.Add(
-                    new GQIRow(new[] {
-                                new GQICell{ Value = item.ServiceOrderItem.ToString() },
-                                new GQICell{ Value = (int)(item.PriorityOrder ?? 0) },
-                    })
-                    );
+			serviceItems.ForEach(item =>
+			{
+				rows.Add(
+					new GQIRow(new[] {
+								new GQICell{ Value = item.ServiceOrderItem.ToString() },
+								new GQICell{ Value = (int)(item.PriorityOrder ?? 0) },
+					})
+					);
 
-            });
+			});
 
-            return rows.ToArray();
+			return rows.ToArray();
 
-        }
+		}
 
-        private void LoadApplicationHandlersAndHelpers()
-        {
-            _DomHelper = new DomHelper(dms.SendMessages, SlcServicemanagementIds.ModuleId);
-        }
+		private void LoadApplicationHandlersAndHelpers()
+		{
+			_domHelper = new DomHelper(_dms.SendMessages, SlcServicemanagementIds.ModuleId);
+		}
 
-        public DMSMessage GenerateInformationEvent(string message)
-        {
-            var generateAlarmMessage = new GenerateAlarmMessage(GenerateAlarmMessage.AlarmSeverity.Information, message) { Status = GenerateAlarmMessage.AlarmStatus.Cleared };
-            return dms.SendMessage(generateAlarmMessage);
-        }
-    }
+		public DMSMessage GenerateInformationEvent(string message)
+		{
+			var generateAlarmMessage = new GenerateAlarmMessage(GenerateAlarmMessage.AlarmSeverity.Information, message) { Status = GenerateAlarmMessage.AlarmStatus.Cleared };
+			return _dms.SendMessage(generateAlarmMessage);
+		}
+	}
 }

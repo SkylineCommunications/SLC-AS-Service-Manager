@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <Company>Skyline Communications</Company>
@@ -21,15 +20,12 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Skyline.DataMiner.Dev.Automation" Version="10.5.1" />
     <PackageReference Include="Skyline.DataMiner.Utils.InteractiveAutomationScriptToolkit" Version="10.0.3" />
+    <PackageReference Include="Skyline.DataMiner.Utils.SecureCoding.Analyzers" Version="1.0.0" />
   </ItemGroup>
   <ProjectExtensions>
-    <VisualStudio><UserProperties DisLinkedXmlFile="..\SLC_SM_Create Service Inventory Item.xml" DisLinkId="1" DisProjectType="automationScriptProject" /></VisualStudio>
+    <VisualStudio>
+      <UserProperties DisLinkedXmlFile="..\SLC_SM_IAS_Add Service Order.xml" DisProjectType="automationScriptProject" DisLinkId="1" />
+    </VisualStudio>
   </ProjectExtensions>
-  <ItemGroup>
-    <PackageReference Include="Skyline.DataMiner.Utils.SecureCoding.Analyzers" Version="1.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
   <Import Project="..\SharedProjectIAS\SharedProjectIAS.projitems" Label="Shared" />
 </Project>

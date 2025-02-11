@@ -48,19 +48,21 @@ DATE		VERSION		AUTHOR			COMMENTS
 dd/mm/2025	1.0.0.1		XXX, Skyline	Initial version
 ****************************************************************************
 */
-namespace SLC_SM_Create_Service_Inventory_Item_1
+namespace SLC_SM_IAS_Add_Service_Order_1
 {
 	using System;
+	using System.Collections.Generic;
 	using System.Linq;
 	using DomHelpers.SlcServicemanagement;
 	using Library;
 	using Library.Views;
+	using Newtonsoft.Json;
 	using Skyline.DataMiner.Automation;
 	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
 	using Skyline.DataMiner.Net.Messages.SLDataGateway;
 	using Skyline.DataMiner.Utils.InteractiveAutomationScript;
-	using SLC_SM_Create_Service_Inventory_Item_1.Presenters;
-	using SLC_SM_Create_Service_Inventory_Item_1.Views;
+	using SLC_SM_IAS_Add_Service_Order_1.Presenters;
+	using SLC_SM_IAS_Add_Service_Order_1.Views;
 
 	/// <summary>
 	///     Represents a DataMiner Automation script.
@@ -69,14 +71,12 @@ namespace SLC_SM_Create_Service_Inventory_Item_1
 	{
 		private InteractiveController _controller;
 		private IEngine _engine;
-		private DomHelper _domHelper;
 
 		private enum Action
 		{
 			Add,
 			Edit,
 		}
-
 
 		/// <summary>
 		///     The script entry point.
@@ -100,30 +100,24 @@ namespace SLC_SM_Create_Service_Inventory_Item_1
 			{
 				_engine = engine;
 				_controller = new InteractiveController(engine);
-				InitHelpers();
-
 				RunSafe();
 			}
 			catch (ScriptAbortException)
 			{
 				// Catch normal abort exceptions (engine.ExitFail or engine.ExitSuccess)
-				throw; // Comment if it should be treated as a normal exit of the script.
 			}
 			catch (ScriptForceAbortException)
 			{
 				// Catch forced abort exceptions, caused via external maintenance messages.
-				throw;
 			}
 			catch (ScriptTimeoutException)
 			{
 				// Catch timeout exceptions for when a script has been running for too long.
-				throw;
 			}
 			catch (InteractiveUserDetachedException)
 			{
 				// Catch a user detaching from the interactive script by closing the window.
 				// Only applicable for interactive scripts, can be removed for non-interactive scripts.
-				throw;
 			}
 			catch (Exception e)
 			{
@@ -132,26 +126,30 @@ namespace SLC_SM_Create_Service_Inventory_Item_1
 			}
 		}
 
-		private void InitHelpers()
+		private static void AddOrUpdateServiceItemToInstance(DomHelper helper, ServiceOrdersInstance instance)
 		{
-			_domHelper = new DomHelper(_engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
+			instance.Save(helper);
 		}
 
 		private void RunSafe()
 		{
+			Guid.TryParse(_engine.GetScriptParam("DOM ID").Value.Trim('"', '[', ']'), out Guid domId);
+
 			string actionRaw = _engine.GetScriptParam("Action").Value.Trim('"', '[', ']');
 			if (!Enum.TryParse(actionRaw, true, out Action action))
 			{
 				throw new InvalidOperationException("No Action provided as input to the script");
 			}
 
-			Guid.TryParse(_engine.GetScriptParam("DOM ID").Value.Trim('"', '[', ']'), out Guid domId);
+			var domHelper = new DomHelper(_engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
 
-			var repo = new Repo(_domHelper);
+			var usedOrderItemLabels = domHelper.DomInstances.Read(DomInstanceExposers.DomDefinitionId.Equal(SlcServicemanagementIds.Definitions.ServiceOrders.Id))
+				.Select(x => new ServiceOrdersInstance(x).ServiceOrderInfo.Name)
+				.ToArray();
 
 			// Init views
-			var view = new ServiceView(_engine);
-			var presenter = new ServicePresenter(_engine, repo, view, repo.AllServices.Select(x => new ServicesInstance(x).Name).ToArray());
+			var view = new ServiceOrderView(_engine);
+			var presenter = new ServiceOrderPresenter(_engine, view, usedOrderItemLabels);
 
 			// Events
 			view.BtnCancel.Pressed += (sender, args) => throw new ScriptAbortException("OK");
@@ -159,7 +157,7 @@ namespace SLC_SM_Create_Service_Inventory_Item_1
 			{
 				if (presenter.Validate())
 				{
-					AddOrUpdateService(presenter.Instance);
+					AddOrUpdateServiceItemToInstance(domHelper, presenter.GetData);
 					throw new ScriptAbortException("OK");
 				}
 			};
@@ -170,69 +168,14 @@ namespace SLC_SM_Create_Service_Inventory_Item_1
 			}
 			else
 			{
-				presenter.LoadFromModel(GetServiceItemSection(domId));
+				var domInstance = domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(domId)).FirstOrDefault()
+								  ?? throw new InvalidOperationException($"No DOM Instance with ID '{domId}' found on the system!");
+				var ordersInstance = new ServiceOrdersInstance(domInstance);
+				presenter.LoadFromModel(ordersInstance);
 			}
 
 			// Run interactive
 			_controller.ShowDialog(view);
-		}
-
-		private ServicesInstance GetServiceItemSection(Guid domId)
-		{
-			if (domId == Guid.Empty)
-			{
-				throw new InvalidOperationException("No existing DOM ID was provided as script input!");
-			}
-
-			var instance = _domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(domId)).FirstOrDefault()
-						   ?? throw new InvalidOperationException($"No Dom Instance with ID '{domId}' found on the system!");
-			return new ServicesInstance(instance);
-		}
-
-		private void AddOrUpdateService(ServicesInstance instance)
-		{
-			if (!instance.ServiceInfo.ServiceSpecifcation.HasValue || instance.ServiceInfo.ServiceSpecifcation == Guid.Empty)
-			{
-				if (!instance.ServiceItems.Any())
-				{
-					instance.ServiceItems.Add(new ServiceItemsSection());
-				}
-
-				if (!instance.ServiceItemRelationship.Any())
-				{
-					instance.ServiceItemRelationship.Add(new ServiceItemRelationshipSection());
-				}
-
-				instance.Save(_domHelper);
-				return;
-			}
-
-			var domInstance = _domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(instance.ServiceInfo.ServiceSpecifcation.Value)).FirstOrDefault()
-							  ?? throw new InvalidOperationException($"No Service Specification found with ID '{instance.ServiceInfo.ServiceSpecifcation}'.");
-			var serviceSpecificationInstance = new ServiceSpecificationsInstance(domInstance);
-
-			instance.ServiceInfo.Icon = serviceSpecificationInstance.ServiceSpecificationInfo.Icon;
-			instance.ServiceInfo.Description = serviceSpecificationInstance.ServiceSpecificationInfo.Description;
-			instance.ServiceInfo.ServiceProperties = serviceSpecificationInstance.ServiceSpecificationInfo.ServiceProperties;
-			instance.ServiceInfo.ServiceConfiguration = serviceSpecificationInstance.ServiceSpecificationInfo.ServiceConfiguration;
-
-			foreach (var relationship in serviceSpecificationInstance.ServiceItemRelationship)
-			{
-				if (!instance.ServiceItemRelationship.Contains(relationship))
-				{
-					instance.ServiceItemRelationship.Add(relationship);
-				}
-			}
-
-			foreach (var item in serviceSpecificationInstance.ServiceItems)
-			{
-				if (!instance.ServiceItems.Contains(item))
-				{
-					instance.ServiceItems.Add(item);
-				}
-			}
-
-			instance.Save(_domHelper);
 		}
 	}
 }

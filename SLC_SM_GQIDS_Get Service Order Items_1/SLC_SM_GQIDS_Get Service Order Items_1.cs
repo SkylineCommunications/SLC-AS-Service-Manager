@@ -132,6 +132,11 @@ namespace SLC_SM_GQIDS_Get_Service_Order_Items_1
 				.Select(x => x.ServiceOrderItem.Value)
 				.ToArray();
 
+			if (!linkedIds.Any())
+			{
+				return Array.Empty<GQIRow>();
+			}
+
 			FilterElement<DomInstance> filter = new ORFilterElement<DomInstance>();
 			foreach (Guid linkedId in linkedIds)
 			{

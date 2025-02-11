@@ -57,9 +57,21 @@
 
 			view.BtnAdd.Text = "Edit";
 			view.TboxLabel.Text = section.Label;
-			view.ServiceItemType.Selected = section.ServiceItemType.Value;
-			view.DefinitionReferences.Selected = section.DefinitionReference;
-			view.ScriptSelection.SetOptions(new[] { section.ServiceItemScript });
+
+			if (section.ServiceItemType.HasValue)
+			{
+				view.ServiceItemType.Selected = section.ServiceItemType.Value;
+			}
+
+			if (!String.IsNullOrEmpty(section.DefinitionReference))
+			{
+				view.DefinitionReferences.Selected = section.DefinitionReference;
+			}
+
+			if (!String.IsNullOrEmpty(section.ServiceItemScript))
+			{
+				view.ScriptSelection.SetOptions(new[] { section.ServiceItemScript });
+			}
 		}
 
 		public bool Validate()
@@ -79,7 +91,7 @@
 				return false;
 			}
 
-			if (getServiceItemLabels.Contains(newValue))
+			if (getServiceItemLabels.Contains(newValue, StringComparer.InvariantCultureIgnoreCase))
 			{
 				view.ErrorLabel.Text = "Label already exists!";
 				return false;
