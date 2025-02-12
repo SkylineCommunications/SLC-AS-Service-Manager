@@ -112,15 +112,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get Service Configuration_1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service Parameters", "Service Parameters", "{4CD6A204-E4C7-4C4D-97A7-717B2AD78AAF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Add Service Parameter", "Add Service Parameter", "{AD9C35EA-85F7-471F-AB1D-5FBB0EC9BD0E}"
-	ProjectSection(SolutionItems) = preProject
-		Add Service Parameter.xml = Add Service Parameter.xml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{080AA1D5-90E4-425B-90DB-673B4EC8F443}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Add Service Parameter_1", "Add Service Parameter_1\Add Service Parameter_1.csproj", "{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,10 +146,6 @@ Global
 		{43502512-CBF0-49C0-B688-AF223CC707FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43502512-CBF0-49C0-B688-AF223CC707FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43502512-CBF0-49C0-B688-AF223CC707FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -193,9 +180,6 @@ Global
 		{C0FD3127-7718-480F-BB2F-C2A5D623C549} = {62D42AD6-A5FB-4DDE-86EB-CF46E78A8A77}
 		{43502512-CBF0-49C0-B688-AF223CC707FD} = {C0FD3127-7718-480F-BB2F-C2A5D623C549}
 		{4CD6A204-E4C7-4C4D-97A7-717B2AD78AAF} = {58D44688-DF14-4EDC-90DB-2B1A6FF4E21D}
-		{AD9C35EA-85F7-471F-AB1D-5FBB0EC9BD0E} = {CF55EE3C-32AB-4A49-AA15-74C0E0CE1719}
-		{080AA1D5-90E4-425B-90DB-673B4EC8F443} = {AD9C35EA-85F7-471F-AB1D-5FBB0EC9BD0E}
-		{4F9C7BCD-9535-46CF-9AC9-55DD862BD44E} = {080AA1D5-90E4-425B-90DB-673B4EC8F443}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2D9BAD4-B595-4651-B30C-550998B67040}
@@ -203,7 +187,6 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		SharedProject\SharedProject.projitems*{1db93bbc-4534-4a2a-a88a-976da45f6ef9}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{43502512-cbf0-49c0-b688-af223cc707fd}*SharedItemsImports = 5
-		SharedProject\SharedProject.projitems*{4f9c7bcd-9535-46cf-9ac9-55dd862bd44e}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{7c2c0c2b-160e-4076-b4a1-cec129d9e74e}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{90038565-cac7-4cfd-bff3-c1dc780e249f}*SharedItemsImports = 13
 		SharedProject\SharedProject.projitems*{967efa36-3ef5-4b42-a63e-9e4b50be8297}*SharedItemsImports = 5

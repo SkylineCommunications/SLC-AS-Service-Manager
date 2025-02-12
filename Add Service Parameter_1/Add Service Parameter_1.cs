@@ -132,12 +132,13 @@ namespace Add_Service_Parameter_1
 
 			ServiceConfigurationInstance configInstance;
 
-            if (configId  != Guid.Empty)
+            if (configId != Guid.Empty)
 			{
                 // new config should be created 
                 engine.GenerateInformation($"ID {configId.ToString()}");
                 configInstance = new ServiceConfigurationInstance(FetchDomInstance(configId));
-			} else
+			} 
+			else
 			{
                 engine.GenerateInformation($"Create new config because ID {configId.ToString()} empty");
                 configInstance = new ServiceConfigurationInstance();
