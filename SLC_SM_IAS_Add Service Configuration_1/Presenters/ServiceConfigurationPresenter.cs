@@ -28,8 +28,8 @@
 		{
 			Label = view.Label.Text,
 			Mandatory = view.Mandatory.IsChecked,
-			StringValue = view.TBoxValue.Text,
-			DoubleValue = view.NumValue.Value,
+			StringValue = view.ValueType.Selected == ServiceConfigurationView.ValueTypeEnum.String ? view.TBoxValue.Text : null,
+			DoubleValue = view.ValueType.Selected == ServiceConfigurationView.ValueTypeEnum.String ? default(double?) : view.NumValue.Value,
 			ProfileParameterID = String.Empty,
 			ServiceParameterID = String.Empty,
 		};
@@ -63,10 +63,10 @@
 
 			ok &= ValidateLabel(view.Label.Text);
 
-			if (view.ValueType.Selected == ServiceConfigurationView.ValueTypeEnum.String)
-			{
-				ok &= ValidateValue(view.TBoxValue.Text);
-			}
+			////if (view.ValueType.Selected == ServiceConfigurationView.ValueTypeEnum.String)
+			////{
+			////	ok &= ValidateValue(view.TBoxValue.Text);
+			////}
 
 			return ok;
 		}

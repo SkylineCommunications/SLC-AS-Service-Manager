@@ -57,7 +57,9 @@ namespace SLC_SM_Delete_Service_Item_1
 	using DomHelpers.SlcServicemanagement;
 	using Newtonsoft.Json;
 	using Skyline.DataMiner.Automation;
+	using Skyline.DataMiner.Library.Solutions.SRM;
 	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
+	using Skyline.DataMiner.Net.Messages;
 	using Skyline.DataMiner.Net.Messages.SLDataGateway;
 
 	/// <summary>
@@ -112,7 +114,7 @@ namespace SLC_SM_Delete_Service_Item_1
 
 			string serviceItemLabelRaw = _engine.GetScriptParam("Service Item Label").Value;
 			string serviceItemLabel = JsonConvert.DeserializeObject<List<string>>(serviceItemLabelRaw).FirstOrDefault()
-			                          ?? throw new InvalidOperationException("No Service Item Label provided as input to the script");
+									  ?? throw new InvalidOperationException("No Service Item Label provided as input to the script");
 
 			var domHelper = new DomHelper(_engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
 			var domInstance = domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(domId)).FirstOrDefault()
@@ -122,13 +124,13 @@ namespace SLC_SM_Delete_Service_Item_1
 			throw new ScriptAbortException("OK");
 		}
 
-		private static void DeleteServiceItemFromInstance(DomHelper helper, DomInstance domInstance, string label)
+		private void DeleteServiceItemFromInstance(DomHelper helper, DomInstance domInstance, string label)
 		{
 			if (domInstance.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.Services.Id)
 			{
 				var instance = new ServicesInstance(domInstance);
 				var serviceItemToRemove = instance.ServiceItems.FirstOrDefault(x => x.Label == label);
-				if (serviceItemToRemove != null)
+				if (serviceItemToRemove != null && !LinkedReferenceStillActive(serviceItemToRemove.ImplementationReference))
 				{
 					instance.ServiceItems.Remove(serviceItemToRemove);
 					instance.Save(helper);
@@ -138,7 +140,7 @@ namespace SLC_SM_Delete_Service_Item_1
 			{
 				var instance = new ServiceSpecificationsInstance(domInstance);
 				var serviceItemToRemove = instance.ServiceItems.FirstOrDefault(x => x.Label == label);
-				if (serviceItemToRemove != null)
+				if (serviceItemToRemove != null && !LinkedReferenceStillActive(serviceItemToRemove.ImplementationReference))
 				{
 					instance.ServiceItems.Remove(serviceItemToRemove);
 					instance.Save(helper);
@@ -148,6 +150,34 @@ namespace SLC_SM_Delete_Service_Item_1
 			{
 				throw new InvalidOperationException($"DOM definition '{domInstance.DomDefinitionId}' not supported (yet).");
 			}
+		}
+
+		private bool LinkedReferenceStillActive(string implementationReference)
+		{
+			if (!Guid.TryParse(implementationReference, out Guid bookingId))
+			{
+				return false;
+			}
+
+			var reservation = SrmManagers.ResourceManager.GetReservationInstance(bookingId);
+			if (reservation.StartTimeUTC > DateTime.UtcNow
+			    && (reservation.Status == ReservationStatus.Pending || reservation.Status == ReservationStatus.Confirmed))
+			{
+				var bkm = reservation.FindBookingManager();
+				bkm.TryCancel((Engine)_engine, ref reservation);
+				bkm.TryDelete((Engine)_engine, reservation);
+
+				return false;
+			}
+
+			if (reservation.EndTimeUTC < DateTime.UtcNow
+				|| reservation.Status == ReservationStatus.Canceled
+				|| reservation.Status == ReservationStatus.Ended)
+			{
+				return false;
+			}
+
+			throw new InvalidOperationException($"Booking '{reservation.Name}' still active on the system. Please finish this booking first before removing the service item from the inventory.");
 		}
 	}
 }

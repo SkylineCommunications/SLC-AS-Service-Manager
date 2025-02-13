@@ -7,7 +7,6 @@ namespace Get_ServiceItemsMultipleSections_1
 	using DomHelpers.SlcServicemanagement;
 	using Skyline.DataMiner.Analytics.GenericInterface;
 	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
-	using Skyline.DataMiner.Net.Helper;
 	using Skyline.DataMiner.Net.Messages;
 
 	// Required to mark the interface as a GQI data source
@@ -138,7 +137,10 @@ namespace Get_ServiceItemsMultipleSections_1
 					new GQICell { Value = item.DefinitionReference ?? String.Empty },
 					new GQICell { Value = item.ServiceItemScript ?? String.Empty },
 					new GQICell { Value = item.ImplementationReference ?? String.Empty },
-				});
+				})
+			{
+				Metadata = new GenIfRowMetadata(new[] { new ObjectRefMetadata { Object = SlcServicemanagementIds.Sections.ServiceItems.Id } }),
+			};
 		}
 
 		private void LoadApplicationHandlersAndHelpers()

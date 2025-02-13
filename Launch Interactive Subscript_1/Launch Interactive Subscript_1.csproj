@@ -33,4 +33,5 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  <Import Project="..\SharedProjectIAS\SharedProjectIAS.projitems" Label="Shared" />
 </Project>

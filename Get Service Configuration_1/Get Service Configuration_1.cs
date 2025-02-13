@@ -9,6 +9,7 @@ namespace Get_ServiceConfiguration_1
 	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
 	using Skyline.DataMiner.Net.Helper;
 	using Skyline.DataMiner.Net.Messages;
+
 	// Required to mark the interface as a GQI data source
 
 	[GQIMetaData(Name = "Get_ServiceConfiguration")]
@@ -151,7 +152,14 @@ namespace Get_ServiceConfiguration_1
 								new GQICell { Value = item.ServiceParameterID ?? String.Empty },
 								new GQICell { Value = item.ProfileParameterID ?? String.Empty },
 								new GQICell { Value = (bool)(item.Mandatory ?? false) },
-								new GQICell { Value = !String.IsNullOrWhiteSpace(item.StringValue) ? item.StringValue : Convert.ToString(item.DoubleValue) },
+								new GQICell
+								{
+									Value = !String.IsNullOrWhiteSpace(item.StringValue)
+										? item.StringValue
+										: item.DoubleValue.HasValue
+											? Convert.ToString(item.DoubleValue.Value)
+											: String.Empty,
+								},
 							})
 					);
 				});

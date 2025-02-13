@@ -20,6 +20,12 @@
 		<ScriptParameter id="2" type="string" values="">
 			<Description>Booking Manager Element Name</Description>
 		</ScriptParameter>
+		<ScriptParameter id="3" type="string" values="">
+			<Description>DOM ID</Description>
+		</ScriptParameter>
+		<ScriptParameter id="4" type="string" values="">
+			<Description>Item Label</Description>
+		</ScriptParameter>
 	</Parameters>
 
 	<Script>

@@ -37,7 +37,7 @@
 			AddWidget(BtnAdd, row, 1);
 		}
 
-		public Label LblName { get; } = new Label("Label");
+		public Label LblName { get; } = new Label("Name");
 
 		public TextBox TboxName { get; } = new TextBox { Width = Defaults.WidgetWidth };
 
@@ -45,7 +45,7 @@
 
 		public Button BtnCancel { get; } = new Button("Cancel");
 
-		public Label LblServiceCategory { get; } = new Label("Service Item Type");
+		public Label LblServiceCategory { get; } = new Label("Category");
 
 		public DropDown<ServiceCategoryInstance> ServiceCategory { get; } = new DropDown<ServiceCategoryInstance> { Width = Defaults.WidgetWidth };
 

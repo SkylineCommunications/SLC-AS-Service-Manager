@@ -22,6 +22,11 @@
     <PackageReference Include="Skyline.DataMiner.Utils.InteractiveAutomationScriptToolkit" Version="10.0.3" />
     <PackageReference Include="Skyline.DataMiner.Utils.SecureCoding.Analyzers" Version="1.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="SLSRMLibrary">
+      <HintPath>..\Dlls\SLSRMLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
       <UserProperties DisLinkedXmlFile="..\SLC_SM_Delete Service Item.xml" DisProjectType="automationScriptProject" DisLinkId="1" />
