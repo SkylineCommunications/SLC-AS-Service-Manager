@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DMSScript options="272" xmlns="http://www.skyline.be/automation">
+	<Name>SLC_SM_Get Service Properties</Name>
+	<Description></Description>
+	<Type>Automation</Type>
+	<Author>SKYLINE2\RobinME</Author>
+	<CheckSets>FALSE</CheckSets>
+	<Folder>Service Management</Folder>
+
+	<Protocols>
+	</Protocols>
+
+	<Memory>
+	</Memory>
+
+	<Parameters>
+	</Parameters>
+
+	<Script>
+		<Exe id="1" type="csharp">
+			<Value><![CDATA[[Project:Get Service Properties_1]]]></Value>
+			<!--<Param type="debug">true</Param>-->
+			<Message></Message>
+			<Param type="preCompile">true</Param>
+			<Param type="libraryName">GetServiceProperties</Param>
+		</Exe>
+	</Script>
+</DMSScript>

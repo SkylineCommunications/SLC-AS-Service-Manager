@@ -53,48 +53,91 @@ namespace Launch_Interactive_Subscript_1
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Globalization;
-    using System.Linq;
-    using System.Text;
-    using Newtonsoft.Json;
-    using Skyline.DataMiner.Automation;
-    using Skyline.DataMiner.Net.Jobs;
+	using System.Linq;
+	using DomHelpers.SlcServicemanagement;
+	using Newtonsoft.Json;
+	using Skyline.DataMiner.Automation;
+	using Skyline.DataMiner.Net.Apps.DataMinerObjectModel;
+	using Skyline.DataMiner.Net.Messages.SLDataGateway;
 
-    /// <summary>
-    /// Represents a DataMiner Automation script.
-    /// </summary>
-    public class Script
-    {
-        /// <summary>
-        /// The script entry point.
-        /// </summary>
-        /// <param name="engine">Link with SLAutomation process.</param>
-        public void Run(IEngine engine)
-        {
-            // Don't remove
-            //// engine.ShowUI();
+	/// <summary>
+	/// Represents a DataMiner Automation script.
+	/// </summary>
+	public class Script
+	{
+		/// <summary>
+		/// The script entry point.
+		/// </summary>
+		/// <param name="engine">Link with SLAutomation process.</param>
+		public void Run(IEngine engine)
+		{
+			/*
+			* Note:
+			* Do not remove the commented methods below!
+			* The lines are needed to execute an interactive automation script from the non-interactive automation script or from Visio!
+			*
+			* engine.ShowUI();
+			*/
+			if (engine.IsInteractive)
+			{
+				engine.FindInteractiveClient("Failed to run script in interactive mode", 1);
+			}
 
-            string scriptNameParam = engine.GetScriptParam("Script Name").Value;
-            engine.GenerateInformation("TEST1");
-            string scriptName = JsonConvert.DeserializeObject<List<string>>(scriptNameParam).Single();
+			try
+			{
+				string scriptNameParam = engine.GetScriptParam("Script Name").Value;
+				string scriptName = JsonConvert.DeserializeObject<List<string>>(scriptNameParam).FirstOrDefault()
+									?? throw new InvalidOperationException("No Service Item Script provided to run the action");
 
-            RunScript(engine, scriptName);
-        }
+				string bookingManagerElementName = JsonConvert.DeserializeObject<List<string>>(engine.GetScriptParam("Booking Manager Element Name").Value).FirstOrDefault()
+												   ?? throw new InvalidOperationException("No Booking Manager Reference provided to run the action");
 
+				string scriptOutput = RunScript(engine, scriptName, bookingManagerElementName);
 
-        private void RunScript(IEngine engine, string scriptName)
-        {
-            engine.GenerateInformation("TEST");
-            var subScript = engine.PrepareSubScript(scriptName);
-            subScript.Synchronous = true;
-            subScript.ExtendedErrorInfo = true;
+				if (Guid.TryParse(engine.GetScriptParam("DOM ID").Value.Trim('"', '[', ']'), out Guid domId))
+				{
+					string itemLabel = engine.GetScriptParam("Item Label").Value.Trim('"', '[', ']');
 
-            subScript.StartScript();
+					var domHelper = new DomHelper(engine.SendSLNetMessages, SlcServicemanagementIds.ModuleId);
+					var inst = domHelper.DomInstances.Read(DomInstanceExposers.Id.Equal(domId)).FirstOrDefault()
+					           ?? throw new InvalidOperationException($"No DOM Instance with ID '{domId}' found on the system");
+					if (inst.DomDefinitionId.Id == SlcServicemanagementIds.Definitions.Services.Id)
+					{
+						var serviceItemInstance = new ServicesInstance(inst);
+						var serviceItem = serviceItemInstance.ServiceItems.FirstOrDefault(x => x.Label == itemLabel);
+						if (serviceItem == null)
+						{
+							return;
+						}
 
-            if (subScript.HadError)
-            {
-                throw new InvalidOperationException(String.Join(@"\r\n", subScript.GetErrorMessages()));
-            }
-        }
-    }
+						serviceItem.ImplementationReference = scriptOutput;
+						serviceItemInstance.Save(domHelper);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				engine.ExitFail(e.Message);
+			}
+		}
+
+		private static string RunScript(IEngine engine, string scriptName, string bookingManagerElementName)
+		{
+			var subScript = engine.PrepareSubScript(scriptName);
+			subScript.Synchronous = true;
+			subScript.ExtendedErrorInfo = true;
+			subScript.InheritScriptOutput = true;
+
+			subScript.SelectScriptParam("Booking Manager Element Info", "{ \"Element\":\"" + bookingManagerElementName + "\",\"TableIndex\":\"\",\"Action\":\"New\"}");
+
+			subScript.StartScript();
+
+			if (subScript.HadError)
+			{
+				throw new InvalidOperationException(String.Join(@"\r\n", subScript.GetErrorMessages()));
+			}
+
+			return subScript.GetScriptResult().FirstOrDefault().Value;
+		}
+	}
 }

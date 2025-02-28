@@ -17,12 +17,15 @@
     <DefineConstants>$(DefineConstants);DCFv1;DBInfo;ALARM_SQUASHING</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Skyline.DataMiner.Dev.Automation" Version="10.5.1" />
+    <PackageReference Include="Skyline.DataMiner.Utils.InteractiveAutomationScriptToolkit" Version="10.0.3" />
+    <PackageReference Include="Skyline.DataMiner.Utils.SecureCoding.Analyzers" Version="1.0.0" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="..\SAT-DL Booking Wizard Wrapper.xml" DisProjectType="automationScriptProject" DisLinkId="1" />
+      <UserProperties DisLinkedXmlFile="..\SLC_SM_Delete_Service.xml" DisProjectType="automationScriptProject" DisLinkId="1" />
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\SharedProjectIAS\SharedProjectIAS.projitems" Label="Shared" />
 </Project>
